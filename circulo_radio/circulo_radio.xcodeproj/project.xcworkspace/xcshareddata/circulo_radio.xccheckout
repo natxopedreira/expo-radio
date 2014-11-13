@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>6ADB935F-3A53-41BD-A2D7-A08846200A43</string>
+	<key>IDESourceControlProjectName</key>
+	<string>circulo_radio</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>693386FEC686535D3774F1A492948D72A4C55D59</key>
+		<string>https://github.com/natxopedreira/circulo_radio.git</string>
+		<key>AA3C89083F876A068BF00EE417FF9832B9EAD1B4</key>
+		<string>https://github.com/natxopedreira/expo-radio.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>circulo_radio.xcodeproj</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>693386FEC686535D3774F1A492948D72A4C55D59</key>
+		<string>../..</string>
+		<key>AA3C89083F876A068BF00EE417FF9832B9EAD1B4</key>
+		<string>../../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/natxopedreira/circulo_radio.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>693386FEC686535D3774F1A492948D72A4C55D59</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>AA3C89083F876A068BF00EE417FF9832B9EAD1B4</string>
+			<key>IDESourceControlWCCName</key>
+			<string></string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>693386FEC686535D3774F1A492948D72A4C55D59</string>
+			<key>IDESourceControlWCCName</key>
+			<string>circulo_radio</string>
+		</dict>
+	</array>
+</dict>
+</plist>
