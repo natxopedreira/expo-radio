@@ -106,16 +106,9 @@ void ofApp::setup(){
     mptreses.push_back(f20);
     
     
+
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
+
     
     // cada dos grados hay un click
     clicks.numClicksDial = 180;
@@ -136,6 +129,7 @@ void ofApp::update(){
         clicks.update();
         time = ofGetElapsedTimef();
     }
+    
 }
 
 //--------------------------------------------------------------

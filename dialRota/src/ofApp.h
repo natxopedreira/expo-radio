@@ -31,9 +31,7 @@ class ofApp : public ofBaseApp{
 
     
     ofPoint posicionCentro;
-    
     float time;
-    
     vector<infoMp3> mptreses;
 		
 };

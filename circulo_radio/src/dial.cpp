@@ -25,12 +25,12 @@ void dial::setup(){
     
     
     /// fuenteSmall
-    fuenteSmall.loadFont("weblysleek_ui/weblysleekuil.ttf", 18, true, true, true);
+    fuenteSmall.loadFont("../../../sharedData/weblysleek_ui/weblysleekuil.ttf", 18, true, true, true);
     fuenteSmall.setLetterSpacing(1);
     fuenteSmall.setSpaceSize(.5);
     
     // fuenteDestacado
-    fuenteDestacado.loadFont("weblysleek_ui/weblysleekuisb.ttf", 20, true, true, true);
+    fuenteDestacado.loadFont("../../../sharedData/weblysleek_ui/weblysleek_ui/weblysleekuisb.ttf", 20, true, true, true);
     fuenteDestacado.setLetterSpacing(1);
     fuenteDestacado.setSpaceSize(.5);
     

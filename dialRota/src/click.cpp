@@ -45,7 +45,7 @@ void click::setup(){
     }
     
     // tipografia
-    fuente.loadFont("weblysleek_ui/weblysleekuil.ttf", 8, true, true, true);
+    fuente.loadFont("../../../sharedData/weblysleek_ui/weblysleekuil.ttf", 8, true, true, true);
     
 }
 
