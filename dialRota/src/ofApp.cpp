@@ -2,12 +2,8 @@
 
 //--------------------------------------------------------------
 void ofApp::setup(){
-    ofEnableAntiAliasing();
+    //ofEnableAntiAliasing();
     ofSetVerticalSync(true);
-
-
-    
-
     
     // cada dos grados hay un click
     clicks.numClicksDial = 180;

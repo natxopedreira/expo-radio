@@ -150,22 +150,33 @@ void click::cambiaCanales(int _in){
     
     // index del vector canales que tengo que cambiar
     int cualCambiar =0;
+    int cualCambiarAbajo =0;
     
     // index del valor de referencia
     int canalReferencia = 0;
+    int canalReferenciAbajo = 0;
+    
     string stringReferencia = "";
+    string stringReferenciAbajo = "";
     
     // index de cual suena
     int indexSuena = 0;
     int dataDestino = 0;
+    int dataDestinoAbajo = 0;
     
-    ////
+    ////108
     
     for (int i = 0; i < canales.size(); i++) {
         if((int)canales.at(i).angulo > 248 && (int)canales.at(i).angulo < 255){
             cualCambiar = i;
         }else if ((int)canales.at(i).angulo > 282 && (int)canales.at(i).angulo < 292){
             stringReferencia = canales.at(i).mpTres.url;
+            
+        }else if ((int)canales.at(i).angulo > 103 && (int)canales.at(i).angulo < 112){
+            cualCambiarAbajo = i;
+            
+        }else if ((int)canales.at(i).angulo > 67 && (int)canales.at(i).angulo < 80){
+            stringReferenciAbajo = canales.at(i).mpTres.url;
             
         }else if ((int)canales.at(i).angulo == 0){
             indexSuena = i;
@@ -181,24 +192,54 @@ void click::cambiaCanales(int _in){
                 
         }
         
+        dataDestino = canalReferencia - 1;
+        if (dataDestino<0) dataDestino = data.mptreses.size()-1;
+        
+        /*
         dataDestino = canalReferencia + 1;
         if (dataDestino>=data.mptreses.size()) dataDestino = 0;
-        
+        */
         //
 
         //canales.at(cualCambiar).mpTres.url = "ostiiii";
         //cout << "stringReferencia " << stringReferencia << endl;
         //cout << "canalReferencia " << canalReferencia << endl;
         //cout << "quiero cambiar el que pone " << canales.at(cualCambiar).mpTres.url <<endl;
-        cout << "quiero cambiar el id " << cualCambiar <<endl;
-        cout << "ponerle el data id " << dataDestino <<endl;
-        cout << "tiene que poner " << data.mptreses.at(dataDestino).url <<endl;
-        cout << "me baso en el valor de " << data.mptreses.at(canalReferencia).url << "con id " << canalReferencia << endl;
+        //cout << "quiero cambiar el id " << cualCambiar <<endl;
+        //cout << "ponerle el data id " << dataDestino <<endl;
+        //cout << "tiene que poner " << data.mptreses.at(dataDestino).url <<endl;
+        //cout << "me baso en el valor de " << data.mptreses.at(canalReferencia).url << "con id " << canalReferencia << endl;
         
         
         canales.at(cualCambiar).mpTres.url = data.mptreses.at(dataDestino).url;
         canales.at(cualCambiar).mpTres.txt = data.mptreses.at(dataDestino).txt;
         
+    }else if (direccion == 0){
+        // la rueda avanza hay que cambiar el de arriba 252º
+        for (int d = 0; d < data.mptreses.size(); d++) {
+            if (data.mptreses.at(d).url == stringReferenciAbajo) canalReferenciAbajo = d;
+        }
+        
+        dataDestinoAbajo = canalReferenciAbajo + 1;
+        if (dataDestinoAbajo>=data.mptreses.size()) dataDestinoAbajo = 0;
+    
+        
+        
+        
+        
+        cout << "stringReferenciAbajo " << stringReferenciAbajo << endl;
+        cout << "canalReferenciAbajo " << canalReferenciAbajo << endl;
+        cout << "quiero cambiar el que pone " << canales.at(cualCambiarAbajo).mpTres.url <<endl;
+        cout << "quiero cambiar el id " << cualCambiarAbajo <<endl;
+        cout << "ponerle el data id " << dataDestinoAbajo <<endl;
+        cout << "tiene que poner " << data.mptreses.at(dataDestinoAbajo).url <<endl;
+        cout << "me baso en el valor de " << data.mptreses.at(canalReferenciAbajo).url << "con id " << canalReferenciAbajo << endl;
+        
+        
+        
+        
+        canales.at(cualCambiarAbajo).mpTres.url = data.mptreses.at(dataDestinoAbajo).url;
+        canales.at(cualCambiarAbajo).mpTres.txt = data.mptreses.at(dataDestinoAbajo).txt;
     }
     
 }
