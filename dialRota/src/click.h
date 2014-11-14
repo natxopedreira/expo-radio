@@ -10,6 +10,9 @@
 #define __dialRota__click__
 
 #include "ofMain.h"
+#include "datos.h"
+#include "ofxFTGLFont.h"
+
 #define GRAD_PI 180.000/PI
 
 /*
@@ -22,6 +25,7 @@ public:
     float angulo;
     int numero;
     int pClick;
+    infoMp3 mpTres;
 };
 
 class click {
@@ -32,19 +36,28 @@ public:
     void draw();
     void drawCanales();
     
+    void cambiaCanales(int _in);
+    int dimeIndexMp3(string _mp3);
+    
+    void avanza();
+    void retrocede();
+    
     ofPoint getClick();
     ofPoint getClickSinOffset();
     
     ofPoint posicionOffset;
     int numClicksDial;
+    int numeroCanales;
     
 private:
     float getAngle(float _x, float _y,float _x0, float _y0);
+    void rotaDial();
     
     ofPoint clickActual;
     ofPoint clickActualSinOffet;
     
     ofTrueTypeFont fuente;
+    ofxFTGLFont font;
     
     float anguloActual;
     int indexClick;
@@ -58,6 +71,9 @@ private:
     // lista con los clicks del dial
     vector<ofPoint> clicks;
     
+    int posListaMp3;
+    
+    datos data;
     
 };
 

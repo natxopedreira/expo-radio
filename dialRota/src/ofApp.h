@@ -4,11 +4,7 @@
 
 #include "click.h"
 
-class infoMp3 {
-public:
-    string url="nada";
-    string txt="nada";
-};
+
 
 class ofApp : public ofBaseApp{
 
@@ -32,6 +28,6 @@ class ofApp : public ofBaseApp{
     
     ofPoint posicionCentro;
     float time;
-    vector<infoMp3> mptreses;
+    
 		
 };
