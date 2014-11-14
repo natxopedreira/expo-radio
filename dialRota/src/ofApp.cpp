@@ -57,7 +57,6 @@ void ofApp::keyPressed(int key){
     
     if(key == 356) clicks.retrocede();
     
-    cout << key << endl;
 }
 
 //--------------------------------------------------------------

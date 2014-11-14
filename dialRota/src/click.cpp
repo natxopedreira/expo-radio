@@ -61,7 +61,15 @@ void click::setup(){
     /// cuando arranca pillamos el index del que esta en 180º
     posListaMp3 =  9;
     
+    /// hacia donde se mueve 1 avanza // 0 retrocede
+    direccion = 0;
     
+    // si esta puesta una frecuencia
+    sintonizada = false;
+    
+    
+    
+    indexClick = 50;
 }
 
 //--------------------------------------------------------------
@@ -99,15 +107,23 @@ void click::avanza(){
     indexClick++;
     // alante
     if(indexClick>=clicks.size()-1) indexClick = 0;
+    
+    direccion = 1;
+    sintonizada = false;
 }
 //--------------------------------------------------------------
 void click::retrocede(){
     indexClick--;
     //atras
     if(indexClick<0) indexClick = clicks.size()+indexClick;
+    
+    direccion = 0;
+    sintonizada = false;
 }
 //--------------------------------------------------------------
 void click::rotaDial(){
+    
+    
     // posicionamos la lista de canales contando con el indexClick que es lo que va aumentando o disminuendo con el rotary
     for (int i = 0; i < canales.size(); i++) {
         int in = indexClick + numClicksDial/numeroCanales*i;
@@ -120,7 +136,7 @@ void click::rotaDial(){
         // si hay un canal dentro del rango de sintonizar way aviso
         if((int)canales.at(i).angulo == 0){
             //cout << "deeeeentro" << endl;
-            //cambiaCanales(i);
+            if(!sintonizada)cambiaCanales(i);
         }
     }
     
@@ -129,78 +145,61 @@ void click::rotaDial(){
 
 //--------------------------------------------------------------
 void click::cambiaCanales(int _in){
-    // la sintonizada esta en 0º
-    // la de arriba en 260º
-    // la de abajo en 100º
     
-    // la de arriba toma la referencia de la de 280º
-    // la de abajo toma la referencia de la de 80º
+    sintonizada = true;
     
-    int indexCanalArribaCambiar = 0;
-    int indexCanalAbajoCambiar = 0;
-
-    string urlArriba = "";
-    string urlAbajo = "";
+    // index del vector canales que tengo que cambiar
+    int cualCambiar =0;
+    
+    // index del valor de referencia
+    int canalReferencia = 0;
+    string stringReferencia = "";
+    
+    // index de cual suena
+    int indexSuena = 0;
+    int dataDestino = 0;
+    
+    ////
     
     for (int i = 0; i < canales.size(); i++) {
-        
-        if((int)canales.at(i).angulo > 258 && (int)canales.at(i).angulo < 262){
-            // 260º
-            indexCanalArribaCambiar = i;
-        
-        }else if ((int)canales.at(i).angulo > 98 && (int)canales.at(i).angulo < 102){
-            // 100º
-            indexCanalAbajoCambiar = i;
-        
-        }else if ((int)canales.at(i).angulo > 278 && (int)canales.at(i).angulo < 282){
-            //280º
-            urlArriba = canales.at(i).mpTres.url;
+        if((int)canales.at(i).angulo > 248 && (int)canales.at(i).angulo < 255){
+            cualCambiar = i;
+        }else if ((int)canales.at(i).angulo > 282 && (int)canales.at(i).angulo < 292){
+            stringReferencia = canales.at(i).mpTres.url;
             
-        }else if ((int)canales.at(i).angulo > 78 && (int)canales.at(i).angulo < 82){
-            // 80º
-            urlAbajo = canales.at(i).mpTres.url;
+        }else if ((int)canales.at(i).angulo == 0){
+            indexSuena = i;
         }
+        //cout << (int)canales.at(i).angulo << endl;
     }
     
-    /////////////
     
-    int anteriorArribaData = 0; // valor previo al que tiene
-    int siguienteAbajoData = 0; // valor siguiente al que tiene
-    
-    for (int d = 0; d < data.mptreses.size(); d++) {
-        
-        if (data.mptreses.at(d).url == urlArriba){
-            anteriorArribaData = d-1;
-        }else if (data.mptreses.at(d).url == urlAbajo){
-            siguienteAbajoData = d+1;
+    if(direccion == 1){
+        // la rueda avanza hay que cambiar el de arriba 252º
+        for (int d = 0; d < data.mptreses.size(); d++) {
+            if (data.mptreses.at(d).url == stringReferencia) canalReferencia = d;
+                
         }
         
+        dataDestino = canalReferencia + 1;
+        if (dataDestino>=data.mptreses.size()) dataDestino = 0;
+        
+        //
+
+        //canales.at(cualCambiar).mpTres.url = "ostiiii";
+        //cout << "stringReferencia " << stringReferencia << endl;
+        //cout << "canalReferencia " << canalReferencia << endl;
+        //cout << "quiero cambiar el que pone " << canales.at(cualCambiar).mpTres.url <<endl;
+        cout << "quiero cambiar el id " << cualCambiar <<endl;
+        cout << "ponerle el data id " << dataDestino <<endl;
+        cout << "tiene que poner " << data.mptreses.at(dataDestino).url <<endl;
+        cout << "me baso en el valor de " << data.mptreses.at(canalReferencia).url << "con id " << canalReferencia << endl;
+        
+        
+        canales.at(cualCambiar).mpTres.url = data.mptreses.at(dataDestino).url;
+        canales.at(cualCambiar).mpTres.txt = data.mptreses.at(dataDestino).txt;
+        
     }
-    
-    if (anteriorArribaData<0){
-        cout << "excepcion !!!!" << endl;
-        
-        
-        cout << "anteriorArribaData antes " << anteriorArribaData << endl;
-        
-        anteriorArribaData = data.mptreses.size()+anteriorArribaData;
-        
-        cout << "anteriorArribaData despues " << anteriorArribaData << endl;
-        cout << "canales.at(indexCanalArribaCambiar).mpTres " << canales.at(indexCanalArribaCambiar).mpTres.url << endl;
-    }
-    
-    
-    cout << "anteriorArribaData " << anteriorArribaData << endl;
-    
-    if (siguienteAbajoData<0 || siguienteAbajoData>data.mptreses.size()) siguienteAbajoData = 0;
-    
-    //cout << "urlArriba " << urlArriba << " donde " << canales.at(indexCanalArribaCambiar).mpTres.url << " ahora " << data.mptreses.at(anteriorArribaData).url<< endl;
-    
-    canales.at(indexCanalArribaCambiar).mpTres = data.mptreses.at(anteriorArribaData);
-    canales.at(indexCanalAbajoCambiar).mpTres = data.mptreses.at(siguienteAbajoData);
-    
-    
-    
     
 }
 
@@ -263,7 +262,7 @@ void click::drawCanales(){
             ofTranslate(canales.at(i).posicion);
             ofRotate((int)canales.at(i).angulo);
         
-            font.drawString(canales.at(i).mpTres.txt + " :: " + ofToString(canales.at(i).mpTres.url) + " :: " + ofToString((int)canales.at(i).angulo), 0, 0);
+            font.drawString("id " + ofToString(i) + " :: " +canales.at(i).mpTres.txt + " :: " + ofToString(canales.at(i).mpTres.url) + " :: " + ofToString((int)canales.at(i).angulo), 0, 0);
             //font.drawString("Emisora " + ofToString(i), 0, 0);
             //fuente.drawStringAsShapes("EMISORA " + ofToString(i), 0, 0);
         ofPopMatrix();

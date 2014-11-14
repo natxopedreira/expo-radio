@@ -75,6 +75,8 @@ private:
     
     datos data;
     
+    int direccion;
+    bool sintonizada;
 };
 
 #endif /* defined(__dialRota__click__) */
