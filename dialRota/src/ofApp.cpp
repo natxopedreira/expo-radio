@@ -42,12 +42,18 @@ void ofApp::draw(){
     ofPopMatrix();
     
     ofPushMatrix();
+        //dial de la radio
         ofTranslate(400, ofGetHeight()/2);
         clicks.drawCanales();
     ofPopMatrix();
     
     ofSetColor(255,190);
     ofRect(0, 0, 400, ofGetHeight());
+    
+    
+    
+    
+    
 }
 
 //--------------------------------------------------------------

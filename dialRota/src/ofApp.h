@@ -3,7 +3,7 @@
 #include "ofMain.h"
 
 #include "click.h"
-
+#include "ofxIntersection.h"
 
 
 class ofApp : public ofBaseApp{
@@ -28,6 +28,8 @@ class ofApp : public ofBaseApp{
     
     ofPoint posicionCentro;
     float time;
+    
+    ofxIntersection is;
     
 		
 };

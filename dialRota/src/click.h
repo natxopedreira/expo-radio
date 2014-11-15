@@ -60,9 +60,15 @@ private:
     ofPoint clickActual;
     ofPoint clickActualSinOffet;
     
-    ofTrueTypeFont fuente;
-    ofxFTGLFont font;
+    vector<ofRectangle> rectVolumen;
+    vector<ofRectangle> rectVolumenUp;
+    
+    //ofTrueTypeFont fuente;
+    //ofxFTGLFont font;
     ofxFTGLSimpleLayout fontArea;
+    
+    ofSoundPlayer sonidoRuido;
+    
     
     float anguloActual;
     int indexClick;

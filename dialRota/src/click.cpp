@@ -30,6 +30,27 @@ void click::setup(){
         clicks.push_back(lineaClicks.getVertices().at(i));
     }
     
+    
+    // comprueba el volumen
+    // los 8 puntos siguientes a 0
+    //rectVolumen
+    for (int i = 0; i < 8; i++) {
+        ofRectangle r;
+        r.set(clicks.at(i)-ofPoint(2,2), 5, 5);
+        
+        rectVolumen.push_back(r);
+    }
+    
+    
+    // los 8 ultimo
+    for (int i = 0; i < 8; i++) {
+        ofRectangle r;
+        r.set(clicks.at((clicks.size()-1) -i)-ofPoint(2,2), 5, 5);
+        
+        rectVolumenUp.push_back(r);
+    }
+    
+    
     // los canales representan la lisda de emisoras visibles
     // los llenamos
     for (int i = 0; i < numeroCanales; i++) {
@@ -45,8 +66,8 @@ void click::setup(){
     }
     
     // tipografia
-    fuente.loadFont("../../../sharedData/weblysleek_ui/weblysleekuil.ttf", 8, true, true, true);
-    font.loadFont("../../../sharedData/weblysleek_ui/weblysleekuil.ttf", 8);
+    //fuente.loadFont("../../../sharedData/weblysleek_ui/weblysleekuil.ttf", 8, true, true, true);
+    //font.loadFont("../../../sharedData/weblysleek_ui/weblysleekuil.ttf", 8);
     
     fontArea.loadFont("../../../sharedData/weblysleek_ui/weblysleekuil.ttf", 10);
     fontArea.setAlignment(FTGL_ALIGN_LEFT);
@@ -69,8 +90,14 @@ void click::setup(){
     // si esta puesta una frecuencia
     sintonizada = false;
     
+    // sonido
+    sonidoRuido.loadSound("../../../sharedData/radioNoise.mp3");
+    sonidoRuido.play();
+    sonidoRuido.setLoop(true);
+    sonidoRuido.setVolume(.5);
     
     
+    // hack para que no aparezca el 0 sintonizado
     indexClick = 60;
 }
 
@@ -88,6 +115,9 @@ void click::update(){
     
     // mueve el dial
     rotaDial();
+    
+    
+
     
 }
 //--------------------------------------------------------------
@@ -236,7 +266,6 @@ void click::draw(){
         ofSetColor(150);
         ofLine(0, 0, lineaClicks.getVertices().at(i).x, lineaClicks.getVertices().at(i).y);
         ofSetColor(50);
-       // ofDrawBitmapString(ofToString(i), clicks.at(i));
     }
 
     // 
@@ -275,7 +304,7 @@ void click::drawCanales(){
         
             string mensaje = "id " + ofToString(i) + " :: "
                     + canales.at(i).mpTres.txt + " :: "
-                    + ofToString(canales.at(i).mpTres.url);
+                    + ofToString(canales.at(i).mpTres.url) + "  ";
         
             ofVec2f offset = getOffset(mensaje);
         
@@ -285,13 +314,59 @@ void click::drawCanales(){
             fontArea.drawString(mensaje, offset.x, offset.y);
         
         
+        
+        
         ofPopMatrix();
     }
+    
+    
+    
+    //// VOLUMENS SONIDO NOISE ///////////////////////////////
+    /// indica el volumen de la interferencia
+    /// con los 8 ultimos puntos y los 8 primeros
+    
+    
+    /// los 8 primeros
+    for (int i = 0; i < rectVolumen.size(); i++) {
+        ofSetColor(160 - 8*i, 50);
+        
+        for (int j = 0; j < canales.size(); j++) {
+            if(rectVolumen.at(i).inside(canales.at(j).posicion)){
+                //cout << "deeeeentro " << ofToString(i) << endl;
+                
+                float sonido = ofMap(i*.10, 0.0, 0.7, 0.0, 0.5);
+                sonidoRuido.setVolume(sonido);
+                
+                ofSetColor(50);
+            }
+        }
+        ofRect(rectVolumen.at(i));
+    }
+    
+    
+    /// los 8 ultimos
+    for (int i = 0; i < rectVolumenUp.size(); i++) {
+        ofSetColor(160 - 8*i, 50);
+        
+        for (int j = 0; j < canales.size(); j++) {
+            if(rectVolumenUp.at(i).inside(canales.at(j).posicion)){
+                //cout << "deeeeentro " << ofToString(i) << endl;
+                
+                float sonido = ofMap(i*.10, 0.0, 0.7, 0.0, 0.5);
+                sonidoRuido.setVolume(sonido);
+                
+                ofSetColor(50);
+            }
+        }
+        ofRect(rectVolumenUp.at(i));
+    }
+    
+    
     
     ofPopStyle();
 }
 
-
+//--------------------------------------------------------------
 ofVec2f click::getOffset( string s ){
     ofRectangle r = fontArea.getStringBoundingBox(s, 0, 0);
     return ofVec2f( int(-r.x - r.width), floor(-r.y - r.height * 0.5f) );
