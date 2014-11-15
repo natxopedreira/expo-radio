@@ -8,7 +8,7 @@ void ofApp::setup(){
     // cada dos grados hay un click
     clicks.numClicksDial = 180;
     clicks.numeroCanales = 10;
-    clicks.diametro = 450;
+    clicks.diametro = 500;
     clicks.anchoCajaTexto = 150;
   
     // le decimos el offset para que nos de posiciones relativas a el

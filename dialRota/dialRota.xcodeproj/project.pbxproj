@@ -10,6 +10,7 @@
 		2A27EEF61A1652D8002BD862 /* ofxFTGLFont.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2A27EECA1A1652D8002BD862 /* ofxFTGLFont.cpp */; };
 		2A27EEF71A1652D8002BD862 /* ofxFTGLSimpleLayout.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2A27EECC1A1652D8002BD862 /* ofxFTGLSimpleLayout.cpp */; };
 		2A27EEF81A1652D8002BD862 /* libftgl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A27EEEF1A1652D8002BD862 /* libftgl.a */; };
+		2A7FA5541A17CA900082BF5A /* ofxCsv.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2A7FA5521A17CA900082BF5A /* ofxCsv.cpp */; };
 		2AB60AFE1A14FDC6003ACA01 /* click.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2AB60AFC1A14FDC6003ACA01 /* click.cpp */; };
 		2ADCF2501A17A7A3007A38DC /* ofxIntersection.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2ADCF24E1A17A7A3007A38DC /* ofxIntersection.cpp */; };
 		BBAB23CB13894F3D00AA2426 /* GLUT.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = BBAB23BE13894E4700AA2426 /* GLUT.framework */; };
@@ -94,6 +95,8 @@
 		2A27EEEE1A1652D8002BD862 /* buildFTGL.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = buildFTGL.sh; sourceTree = "<group>"; };
 		2A27EEEF1A1652D8002BD862 /* libftgl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libftgl.a; sourceTree = "<group>"; };
 		2A27EEFA1A1654F7002BD862 /* datos.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = datos.h; sourceTree = "<group>"; };
+		2A7FA5521A17CA900082BF5A /* ofxCsv.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ofxCsv.cpp; sourceTree = "<group>"; };
+		2A7FA5531A17CA900082BF5A /* ofxCsv.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ofxCsv.h; sourceTree = "<group>"; };
 		2AB60AFC1A14FDC6003ACA01 /* click.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = click.cpp; sourceTree = "<group>"; };
 		2AB60AFD1A14FDC6003ACA01 /* click.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = click.h; sourceTree = "<group>"; };
 		2ADCF24E1A17A7A3007A38DC /* ofxIntersection.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ofxIntersection.cpp; sourceTree = "<group>"; };
@@ -245,6 +248,24 @@
 			path = osx;
 			sourceTree = "<group>";
 		};
+		2A7FA5501A17CA900082BF5A /* ofxCsv */ = {
+			isa = PBXGroup;
+			children = (
+				2A7FA5511A17CA900082BF5A /* src */,
+			);
+			name = ofxCsv;
+			sourceTree = "<group>";
+		};
+		2A7FA5511A17CA900082BF5A /* src */ = {
+			isa = PBXGroup;
+			children = (
+				2A7FA5521A17CA900082BF5A /* ofxCsv.cpp */,
+				2A7FA5531A17CA900082BF5A /* ofxCsv.h */,
+			);
+			name = src;
+			path = ../../../addons/ofxCsv/src;
+			sourceTree = "<group>";
+		};
 		2ADCF24C1A17A7A3007A38DC /* ofxIntersection */ = {
 			isa = PBXGroup;
 			children = (
@@ -266,6 +287,7 @@
 		BB4B014C10F69532006C3DED /* addons */ = {
 			isa = PBXGroup;
 			children = (
+				2A7FA5501A17CA900082BF5A /* ofxCsv */,
 				2ADCF24C1A17A7A3007A38DC /* ofxIntersection */,
 				2A27EEC71A1652D8002BD862 /* ofxFTGL */,
 			);
@@ -441,6 +463,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2A27EEF71A1652D8002BD862 /* ofxFTGLSimpleLayout.cpp in Sources */,
+				2A7FA5541A17CA900082BF5A /* ofxCsv.cpp in Sources */,
 				2AB60AFE1A14FDC6003ACA01 /* click.cpp in Sources */,
 				2ADCF2501A17A7A3007A38DC /* ofxIntersection.cpp in Sources */,
 				2A27EEF61A1652D8002BD862 /* ofxFTGLFont.cpp in Sources */,

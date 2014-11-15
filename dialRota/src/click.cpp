@@ -69,9 +69,9 @@ void click::setup(){
     //fuente.loadFont("../../../sharedData/weblysleek_ui/weblysleekuil.ttf", 8, true, true, true);
     //font.loadFont("../../../sharedData/weblysleek_ui/weblysleekuil.ttf", 8);
     
-    fontArea.loadFont("../../../sharedData/weblysleek_ui/weblysleekuil.ttf", 10);
+    fontArea.loadFont("../../../sharedData/weblysleek_ui/weblysleekuil.ttf", 8);
     fontArea.setAlignment(FTGL_ALIGN_LEFT);
-    fontArea.setLineLength(diametro);
+    fontArea.setLineLength(diametro*.75);
     
     
     /// metemos los datos de mp3 dentro de lel vector de emisoras
@@ -309,7 +309,7 @@ void click::drawCanales(){
             ofVec2f offset = getOffset(mensaje);
         
             ofTranslate(canales.at(i).posicion);
-            ofRotate((int)canales.at(i).angulo);
+            ofRotate(canales.at(i).angulo);
 
             fontArea.drawString(mensaje, offset.x, offset.y);
         
@@ -369,7 +369,7 @@ void click::drawCanales(){
 //--------------------------------------------------------------
 ofVec2f click::getOffset( string s ){
     ofRectangle r = fontArea.getStringBoundingBox(s, 0, 0);
-    return ofVec2f( int(-r.x - r.width), floor(-r.y - r.height * 0.5f) );
+    return ofVec2f( floor(-r.x - r.width), floor(-r.y - r.height*0.5) );
 }
 
 //--------------------------------------------------------------
