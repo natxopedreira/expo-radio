@@ -11,7 +11,7 @@
 
 #include "ofMain.h"
 #include "datos.h"
-#include "ofxFTGLFont.h"
+#include "ofxFTGL.h"
 
 #define GRAD_PI 180.000/PI
 
@@ -48,16 +48,21 @@ public:
     ofPoint posicionOffset;
     int numClicksDial;
     int numeroCanales;
+    int diametro;
+    int anchoCajaTexto;
     
 private:
     float getAngle(float _x, float _y,float _x0, float _y0);
     void rotaDial();
+    
+    ofVec2f getOffset( string s );
     
     ofPoint clickActual;
     ofPoint clickActualSinOffet;
     
     ofTrueTypeFont fuente;
     ofxFTGLFont font;
+    ofxFTGLSimpleLayout fontArea;
     
     float anguloActual;
     int indexClick;

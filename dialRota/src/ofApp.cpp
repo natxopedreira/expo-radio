@@ -8,6 +8,8 @@ void ofApp::setup(){
     // cada dos grados hay un click
     clicks.numClicksDial = 180;
     clicks.numeroCanales = 10;
+    clicks.diametro = 450;
+    clicks.anchoCajaTexto = 150;
   
     // le decimos el offset para que nos de posiciones relativas a el
     posicionCentro = ofPoint(ofGetWidth()/2, ofGetHeight()/2);
@@ -34,15 +36,18 @@ void ofApp::update(){
 void ofApp::draw(){
     
     ofPushMatrix();
-        ofTranslate(1500, ofGetHeight()/2);
+        ofTranslate(1300, ofGetHeight()/2);
+        ofScale(0.5, 0.5);
         clicks.draw();
-
-        ofTranslate(-800, 0);
+    ofPopMatrix();
+    
+    ofPushMatrix();
+        ofTranslate(400, ofGetHeight()/2);
         clicks.drawCanales();
     ofPopMatrix();
     
-    ofSetColor(255,150);
-    ofRect(300, 0, 400, ofGetHeight());
+    ofSetColor(255,190);
+    ofRect(0, 0, 400, ofGetHeight());
 }
 
 //--------------------------------------------------------------

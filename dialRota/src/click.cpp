@@ -12,7 +12,7 @@
 void click::setup(){
 
     // hacemos un circulo con ofPath y luego le marcamos la resolucion
-    circuloClicks.circle(0, 0, 250);
+    circuloClicks.circle(0, 0, diametro);
     circuloClicks.setCircleResolution(numClicksDial);
     
     // copiamos el exterior a una polylinea
@@ -48,15 +48,17 @@ void click::setup(){
     fuente.loadFont("../../../sharedData/weblysleek_ui/weblysleekuil.ttf", 8, true, true, true);
     font.loadFont("../../../sharedData/weblysleek_ui/weblysleekuil.ttf", 8);
     
+    fontArea.loadFont("../../../sharedData/weblysleek_ui/weblysleekuil.ttf", 10);
+    fontArea.setAlignment(FTGL_ALIGN_LEFT);
+    fontArea.setLineLength(diametro);
+    
     
     /// metemos los datos de mp3 dentro de lel vector de emisoras
     /// movemos el dial una vuelta entera
     
     for (int m = 0; m < data.mptreses.size(); m++) {
         if(m<canales.size()) canales.at(m).mpTres = data.mptreses.at(m);
-
     }
-    
     
     /// cuando arranca pillamos el index del que esta en 180º
     posListaMp3 =  9;
@@ -69,23 +71,11 @@ void click::setup(){
     
     
     
-    indexClick = 50;
+    indexClick = 60;
 }
 
 //--------------------------------------------------------------
 void click::update(){
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    //cada vez que se suma uno
-    
     
     // calculamos el angulo actual
     anguloActual = getAngle(clicks[indexClick].x, clicks[indexClick].y, 0, 0);
@@ -99,8 +89,6 @@ void click::update(){
     // mueve el dial
     rotaDial();
     
-    
-
 }
 //--------------------------------------------------------------
 void click::avanza(){
@@ -181,7 +169,6 @@ void click::cambiaCanales(int _in){
         }else if ((int)canales.at(i).angulo == 0){
             indexSuena = i;
         }
-        //cout << (int)canales.at(i).angulo << endl;
     }
     
     
@@ -195,12 +182,6 @@ void click::cambiaCanales(int _in){
         dataDestino = canalReferencia - 1;
         if (dataDestino<0) dataDestino = data.mptreses.size()-1;
         
-        /*
-        dataDestino = canalReferencia + 1;
-        if (dataDestino>=data.mptreses.size()) dataDestino = 0;
-        */
-        //
-
         //canales.at(cualCambiar).mpTres.url = "ostiiii";
         //cout << "stringReferencia " << stringReferencia << endl;
         //cout << "canalReferencia " << canalReferencia << endl;
@@ -209,7 +190,6 @@ void click::cambiaCanales(int _in){
         //cout << "ponerle el data id " << dataDestino <<endl;
         //cout << "tiene que poner " << data.mptreses.at(dataDestino).url <<endl;
         //cout << "me baso en el valor de " << data.mptreses.at(canalReferencia).url << "con id " << canalReferencia << endl;
-        
         
         canales.at(cualCambiar).mpTres.url = data.mptreses.at(dataDestino).url;
         canales.at(cualCambiar).mpTres.txt = data.mptreses.at(dataDestino).txt;
@@ -222,22 +202,15 @@ void click::cambiaCanales(int _in){
         
         dataDestinoAbajo = canalReferenciAbajo + 1;
         if (dataDestinoAbajo>=data.mptreses.size()) dataDestinoAbajo = 0;
-    
         
-        
-        
-        
-        cout << "stringReferenciAbajo " << stringReferenciAbajo << endl;
-        cout << "canalReferenciAbajo " << canalReferenciAbajo << endl;
-        cout << "quiero cambiar el que pone " << canales.at(cualCambiarAbajo).mpTres.url <<endl;
-        cout << "quiero cambiar el id " << cualCambiarAbajo <<endl;
-        cout << "ponerle el data id " << dataDestinoAbajo <<endl;
-        cout << "tiene que poner " << data.mptreses.at(dataDestinoAbajo).url <<endl;
-        cout << "me baso en el valor de " << data.mptreses.at(canalReferenciAbajo).url << "con id " << canalReferenciAbajo << endl;
-        
-        
-        
-        
+        //cout << "stringReferenciAbajo " << stringReferenciAbajo << endl;
+        //cout << "canalReferenciAbajo " << canalReferenciAbajo << endl;
+        //cout << "quiero cambiar el que pone " << canales.at(cualCambiarAbajo).mpTres.url <<endl;
+        //cout << "quiero cambiar el id " << cualCambiarAbajo <<endl;
+        //cout << "ponerle el data id " << dataDestinoAbajo <<endl;
+        //cout << "tiene que poner " << data.mptreses.at(dataDestinoAbajo).url <<endl;
+        //cout << "me baso en el valor de " << data.mptreses.at(canalReferenciAbajo).url << "con id " << canalReferenciAbajo << endl;
+
         canales.at(cualCambiarAbajo).mpTres.url = data.mptreses.at(dataDestinoAbajo).url;
         canales.at(cualCambiarAbajo).mpTres.txt = data.mptreses.at(dataDestinoAbajo).txt;
     }
@@ -263,7 +236,7 @@ void click::draw(){
         ofSetColor(150);
         ofLine(0, 0, lineaClicks.getVertices().at(i).x, lineaClicks.getVertices().at(i).y);
         ofSetColor(50);
-        ofDrawBitmapString(ofToString(i), clicks.at(i));
+       // ofDrawBitmapString(ofToString(i), clicks.at(i));
     }
 
     // 
@@ -300,18 +273,29 @@ void click::drawCanales(){
             if((int)canales.at(i).angulo ==0) ofSetColor(0,255,50);
             if((int)canales.at(i).angulo ==260 || (int)canales.at(i).angulo ==100) ofSetColor(255,0,50);
         
+            string mensaje = "id " + ofToString(i) + " :: "
+                    + canales.at(i).mpTres.txt + " :: "
+                    + ofToString(canales.at(i).mpTres.url);
+        
+            ofVec2f offset = getOffset(mensaje);
+        
             ofTranslate(canales.at(i).posicion);
             ofRotate((int)canales.at(i).angulo);
+
+            fontArea.drawString(mensaje, offset.x, offset.y);
         
-            font.drawString("id " + ofToString(i) + " :: " +canales.at(i).mpTres.txt + " :: " + ofToString(canales.at(i).mpTres.url) + " :: " + ofToString((int)canales.at(i).angulo), 0, 0);
-            //font.drawString("Emisora " + ofToString(i), 0, 0);
-            //fuente.drawStringAsShapes("EMISORA " + ofToString(i), 0, 0);
+        
         ofPopMatrix();
     }
     
     ofPopStyle();
 }
 
+
+ofVec2f click::getOffset( string s ){
+    ofRectangle r = fontArea.getStringBoundingBox(s, 0, 0);
+    return ofVec2f( int(-r.x - r.width), floor(-r.y - r.height * 0.5f) );
+}
 
 //--------------------------------------------------------------
 ofPoint click::getClick(){
