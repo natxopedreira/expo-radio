@@ -35,7 +35,7 @@ public:
     void update();
     void draw();
     void drawCanales();
-    
+
     void cambiaCanales(int _in);
     int dimeIndexMp3(string _mp3);
     
@@ -46,6 +46,7 @@ public:
     ofPoint getClickSinOffset();
     
     ofPoint posicionOffset;
+    
     int numClicksDial;
     int numeroCanales;
     int diametro;
@@ -54,6 +55,8 @@ public:
 private:
     float getAngle(float _x, float _y,float _x0, float _y0);
     void rotaDial();
+    void ajustaVolumen();
+    void dibujaVolumen();
     
     ofVec2f getOffset( string s );
     
@@ -63,8 +66,6 @@ private:
     vector<ofRectangle> rectVolumen;
     vector<ofRectangle> rectVolumenUp;
     
-    //ofTrueTypeFont fuente;
-    //ofxFTGLFont font;
     ofxFTGLSimpleLayout fontArea;
     
     ofSoundPlayer sonidoRuido;
@@ -72,12 +73,16 @@ private:
     
     int lastAudio;
     int lastAguja;
-    
+    int indexClick;
+    int posListaMp3;
+    int direccion;
     
     float anguloActual;
-    int indexClick;
+    
+    bool sintonizada;
     
     ofPath circuloClicks;
+    
     ofPolyline lineaClicks;
     
     // lisda de emisoras visibles
@@ -86,12 +91,8 @@ private:
     // lista con los clicks del dial
     vector<ofPoint> clicks;
     
-    int posListaMp3;
     
     datos data;
-    
-    int direccion;
-    bool sintonizada;
 };
 
 #endif /* defined(__dialRota__click__) */

@@ -121,10 +121,122 @@ void click::update(){
     // mueve el dial
     rotaDial();
     
-    
-
+    // ajusta el volumen
+    ajustaVolumen();
     
 }
+
+//--------------------------------------------------------------
+void click::draw(){
+    
+    // looop por todos los clicks
+    ofPushStyle();
+    
+    for (int i = 0; i < clicks.size()-1; i++) {
+        ofSetColor(255, 0, 0);
+        ofCircle(clicks.at(i), 2);
+        ofSetColor(150);
+        ofLine(0, 0, lineaClicks.getVertices().at(i).x, lineaClicks.getVertices().at(i).y);
+        ofSetColor(50);
+    }
+    
+    //
+    ofSetColor(255, 0, 0);
+    ofCircle(clicks[indexClick], 20);
+    
+    // angulo del dial
+    ofSetColor(0);
+    ofLine(clicks[indexClick].x, clicks[indexClick].y, 0, 0);
+    
+    // numero de clicks disponibles
+    ofDrawBitmapString("num de clicks " + ofToString(numClicksDial), ofPoint(0,0));
+    
+    // angulo actual del dial
+    ofDrawBitmapString("angulo " + ofToString((int)anguloActual), ofPoint(0,20));
+    
+    // posicion x e y del dial
+    ofDrawBitmapString("posicion x:" + ofToString((int)clickActualSinOffet.x) + " y:" + ofToString((int)clickActualSinOffet.y), ofPoint(0,40));
+    
+    ofPopStyle();
+}
+
+//--------------------------------------------------------------
+void click::drawCanales(){
+    
+    // looop para los canales
+    ofPushStyle();
+    
+    for (int i = 0; i < canales.size(); i++) {
+        ofSetColor(0);
+        ofLine(canales.at(i).posicion, ofPoint(0,0));
+        
+        ofPushMatrix();
+        if((int)canales.at(i).angulo ==0) ofSetColor(0,255,50);
+        if((int)canales.at(i).angulo ==260 || (int)canales.at(i).angulo ==100) ofSetColor(255,0,50);
+        
+        string mensaje = "id " + ofToString(i) + " :: "
+        + canales.at(i).mpTres.txt + " :: "
+        + ofToString(canales.at(i).mpTres.url) + "  ";
+        
+        ofVec2f offset = getOffset(mensaje);
+        
+        ofTranslate(canales.at(i).posicion);
+        ofRotate(canales.at(i).angulo);
+        
+        
+        
+        fontArea.drawString(mensaje, offset.x, 0);
+        
+        
+        
+        
+        ofPopMatrix();
+    }
+    
+    
+    
+    //// VOLUMENS SONIDO NOISE ///////////////////////////////
+    dibujaVolumen();
+    
+    
+    ofPopStyle();
+}
+
+//--------------------------------------------------------------
+void click::dibujaVolumen(){
+    /// indica el volumen de la interferencia
+    /// con los 8 ultimos puntos y los 8 primeros
+    
+    bool dentroSliderAudio = false;
+    
+    for (int i = 0; i < rectVolumen.size(); i++) {
+        ofSetColor(160 - 8*i, 50);
+        
+        for (int j = 0; j < canales.size(); j++) {
+            if(rectVolumen.at(i).inside(canales.at(j).posicion)){
+                ofSetColor(50);
+            }
+        }
+        ofRect(rectVolumen.at(i));
+    }
+    
+    
+    
+    
+    /// los 8 ultimos
+    for (int i = 0; i < rectVolumenUp.size(); i++) {
+        ofSetColor(160 - 8*i, 50);
+        
+        for (int j = 0; j < canales.size(); j++) {
+            if(rectVolumenUp.at(i).inside(canales.at(j).posicion)){
+                //cout << "deeeeentro " << ofToString(i) << endl;
+                ofSetColor(50);
+            }
+        }
+        ofRect(rectVolumenUp.at(i));
+    }
+}
+
 //--------------------------------------------------------------
 void click::avanza(){
     indexClick++;
@@ -134,6 +246,7 @@ void click::avanza(){
     direccion = 1;
     sintonizada = false;
 }
+
 //--------------------------------------------------------------
 void click::retrocede(){
     indexClick--;
@@ -143,6 +256,7 @@ void click::retrocede(){
     direccion = 0;
     sintonizada = false;
 }
+
 //--------------------------------------------------------------
 void click::rotaDial(){
     
@@ -271,93 +385,11 @@ void click::cambiaCanales(int _in){
 }
 
 //--------------------------------------------------------------
-int click::dimeIndexMp3(string _mp3){
-    for (int i = 0;  i < canales.size(); i++) {
-        if(canales.at(i).mpTres.url == _mp3) return i;
-    }
-}
-
-//--------------------------------------------------------------
-void click::draw(){
-
-    // looop por todos los clicks
-    ofPushStyle();
-    
-    for (int i = 0; i < clicks.size()-1; i++) {
-        ofSetColor(255, 0, 0);
-        ofCircle(clicks.at(i), 2);
-        ofSetColor(150);
-        ofLine(0, 0, lineaClicks.getVertices().at(i).x, lineaClicks.getVertices().at(i).y);
-        ofSetColor(50);
-    }
-
-    // 
-    ofSetColor(255, 0, 0);
-    ofCircle(clicks[indexClick], 20);
-    
-    // angulo del dial
-    ofSetColor(0);
-    ofLine(clicks[indexClick].x, clicks[indexClick].y, 0, 0);
-    
-    // numero de clicks disponibles
-    ofDrawBitmapString("num de clicks " + ofToString(numClicksDial), ofPoint(0,0));
-    
-    // angulo actual del dial
-    ofDrawBitmapString("angulo " + ofToString((int)anguloActual), ofPoint(0,20));
-    
-    // posicion x e y del dial
-    ofDrawBitmapString("posicion x:" + ofToString((int)clickActualSinOffet.x) + " y:" + ofToString((int)clickActualSinOffet.y), ofPoint(0,40));
-    
-    ofPopStyle();
-}
-
-//--------------------------------------------------------------
-void click::drawCanales(){
-    
-    // looop para los canales
-    ofPushStyle();
-    
-    for (int i = 0; i < canales.size(); i++) {
-        ofSetColor(0);
-        ofLine(canales.at(i).posicion, ofPoint(0,0));
-        
-        ofPushMatrix();
-            if((int)canales.at(i).angulo ==0) ofSetColor(0,255,50);
-            if((int)canales.at(i).angulo ==260 || (int)canales.at(i).angulo ==100) ofSetColor(255,0,50);
-        
-            string mensaje = "id " + ofToString(i) + " :: "
-                    + canales.at(i).mpTres.txt + " :: "
-                    + ofToString(canales.at(i).mpTres.url) + "  ";
-        
-            ofVec2f offset = getOffset(mensaje);
-        
-            ofTranslate(canales.at(i).posicion);
-            ofRotate(canales.at(i).angulo);
-
-        
-        
-            fontArea.drawString(mensaje, offset.x, 0);
-        
-        
-        
-        
-        ofPopMatrix();
-    }
-    
-    
-    
-    //// VOLUMENS SONIDO NOISE ///////////////////////////////
-    /// indica el volumen de la interferencia
-    /// con los 8 ultimos puntos y los 8 primeros
-    
-    
-    /// los 8 primeros
+void click::ajustaVolumen(){
     
     bool dentroSliderAudio = false;
     
     for (int i = 0; i < rectVolumen.size(); i++) {
-        ofSetColor(160 - 8*i, 50);
-        
         for (int j = 0; j < canales.size(); j++) {
             if(rectVolumen.at(i).inside(canales.at(j).posicion)){
                 
@@ -370,29 +402,15 @@ void click::drawCanales(){
                 
                 sonidoRuido.setVolume(sonido);
                 if(dentroSliderAudio) sonidoEmisora.setVolume(sonidoReverse);
-
                 
-                ofSetColor(50);
-               
             }
-            /// si estas en el ultimo puntiko apagas el sonido de la emisora
-            
         }
-        
-        //if(i == rectVolumen.size()-1) sonidoEmisora.stop();
-        ofRect(rectVolumen.at(i));
     }
-    
-    
-    
-    
+    ////////////////////////////////////////
     /// los 8 ultimos
     for (int i = 0; i < rectVolumenUp.size(); i++) {
-        ofSetColor(160 - 8*i, 50);
-        
         for (int j = 0; j < canales.size(); j++) {
             if(rectVolumenUp.at(i).inside(canales.at(j).posicion)){
-                //cout << "deeeeentro " << ofToString(i) << endl;
                 
                 if(j == lastAguja){
                     dentroSliderAudio = true;
@@ -404,20 +422,17 @@ void click::drawCanales(){
                 
                 sonidoRuido.setVolume(sonido);
                 if(dentroSliderAudio) sonidoEmisora.setVolume(sonidoReverse);
-
-                ofSetColor(50);
             }
-            
         }
-        //if(i == rectVolumenUp.size()-1) sonidoEmisora.stop();
         ofRect(rectVolumenUp.at(i));
     }
+}
 
-    
-   // cout << "dentroSliderAudio " << dentroSliderAudio << " lastAguja " << lastAguja << endl;
-    
-    
-    ofPopStyle();
+//--------------------------------------------------------------
+int click::dimeIndexMp3(string _mp3){
+    for (int i = 0;  i < canales.size(); i++) {
+        if(canales.at(i).mpTres.url == _mp3) return i;
+    }
 }
 
 //--------------------------------------------------------------

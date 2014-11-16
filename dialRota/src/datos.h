@@ -27,15 +27,14 @@ public:
         csv.loadFile(ofToDataPath("../../../sharedData/radio naranja.csv"),";");
         
         for(int i=0; i<csv.numRows; i++) {
-            cout << csv.data[i][0] << endl;
-            cout << csv.data[i][1] << endl;
+            //cout << csv.data[i][0] << endl;
+            //cout << csv.data[i][1] << endl;
             
             string s = csv.data[i][1];
-            //string s = "Manuel Azaña. Político. Presidente de la Segunda República.";
-            
             s.erase(std::remove(s.begin(), s.end(), '\n'), s.end());
             
             infoMp3 mp3;
+            
             mp3.txt = s;
             mp3.url = csv.data[i][0]+".mp3";
             
