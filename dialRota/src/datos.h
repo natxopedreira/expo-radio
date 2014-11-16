@@ -31,6 +31,7 @@ public:
             cout << csv.data[i][1] << endl;
             
             string s = csv.data[i][1];
+            //string s = "Manuel Azaña. Político. Presidente de la Segunda República.";
             
             s.erase(std::remove(s.begin(), s.end(), '\n'), s.end());
             

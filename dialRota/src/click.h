@@ -68,6 +68,10 @@ private:
     ofxFTGLSimpleLayout fontArea;
     
     ofSoundPlayer sonidoRuido;
+    ofSoundPlayer sonidoEmisora;
+    
+    int lastAudio;
+    int lastAguja;
     
     
     float anguloActual;

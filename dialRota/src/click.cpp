@@ -99,6 +99,11 @@ void click::setup(){
     
     // hack para que no aparezca el 0 sintonizado
     indexClick = 60;
+    
+    
+    // el id del ultimo audio que sono
+    lastAudio = -1;
+    lastAguja = -1;
 }
 
 //--------------------------------------------------------------
@@ -245,6 +250,24 @@ void click::cambiaCanales(int _in){
         canales.at(cualCambiarAbajo).mpTres.txt = data.mptreses.at(dataDestinoAbajo).txt;
     }
     
+    
+    // miramos si hay una emisora cargada
+    if (sonidoEmisora.isLoaded() && _in != lastAudio) {
+        sonidoEmisora.unloadSound();
+    }
+    
+    if(_in != lastAudio){
+    /// haces play con el audio de la frecuencia seleccionada
+    
+        sonidoEmisora.loadSound("../../../Audios mp3/" + canales.at(_in).mpTres.url);
+        sonidoEmisora.setVolume(.5);
+        sonidoEmisora.play();
+    }
+    
+    lastAudio = _in;
+    
+    // en que canal esta lo que seleccionas
+    lastAguja = _in;
 }
 
 //--------------------------------------------------------------
@@ -311,7 +334,9 @@ void click::drawCanales(){
             ofTranslate(canales.at(i).posicion);
             ofRotate(canales.at(i).angulo);
 
-            fontArea.drawString(mensaje, offset.x, offset.y);
+        
+        
+            fontArea.drawString(mensaje, offset.x, 0);
         
         
         
@@ -327,21 +352,38 @@ void click::drawCanales(){
     
     
     /// los 8 primeros
+    
+    bool dentroSliderAudio = false;
+    
     for (int i = 0; i < rectVolumen.size(); i++) {
         ofSetColor(160 - 8*i, 50);
         
         for (int j = 0; j < canales.size(); j++) {
             if(rectVolumen.at(i).inside(canales.at(j).posicion)){
-                //cout << "deeeeentro " << ofToString(i) << endl;
+                
+                if(j == lastAguja){
+                    dentroSliderAudio = true;
+                }
                 
                 float sonido = ofMap(i*.10, 0.0, 0.7, 0.0, 0.5);
+                float sonidoReverse = ofMap(sonido,0.0, 0.5, 0.5, 0.0);
+                
                 sonidoRuido.setVolume(sonido);
+                if(dentroSliderAudio) sonidoEmisora.setVolume(sonidoReverse);
+
                 
                 ofSetColor(50);
+               
             }
+            /// si estas en el ultimo puntiko apagas el sonido de la emisora
+            
         }
+        
+        //if(i == rectVolumen.size()-1) sonidoEmisora.stop();
         ofRect(rectVolumen.at(i));
     }
+    
+    
     
     
     /// los 8 ultimos
@@ -352,15 +394,27 @@ void click::drawCanales(){
             if(rectVolumenUp.at(i).inside(canales.at(j).posicion)){
                 //cout << "deeeeentro " << ofToString(i) << endl;
                 
-                float sonido = ofMap(i*.10, 0.0, 0.7, 0.0, 0.5);
-                sonidoRuido.setVolume(sonido);
+                if(j == lastAguja){
+                    dentroSliderAudio = true;
+                }
                 
+                float sonido = ofMap(i*.10, 0.0, 0.7, 0.0, 0.5);
+                
+                float sonidoReverse = ofMap(sonido, 0.0, 0.5, 0.5, 0.0);
+                
+                sonidoRuido.setVolume(sonido);
+                if(dentroSliderAudio) sonidoEmisora.setVolume(sonidoReverse);
+
                 ofSetColor(50);
             }
+            
         }
+        //if(i == rectVolumenUp.size()-1) sonidoEmisora.stop();
         ofRect(rectVolumenUp.at(i));
     }
+
     
+   // cout << "dentroSliderAudio " << dentroSliderAudio << " lastAguja " << lastAguja << endl;
     
     
     ofPopStyle();
