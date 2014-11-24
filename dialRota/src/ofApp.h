@@ -3,8 +3,8 @@
 #include "ofMain.h"
 
 #include "click.h"
-#include "ofxIntersection.h"
 
+#include "ofxPowerMate.h"
 
 class ofApp : public ofBaseApp{
 
@@ -23,13 +23,14 @@ class ofApp : public ofBaseApp{
 		void dragEvent(ofDragInfo dragInfo);
 		void gotMessage(ofMessage msg);
     
+    void onPowerMateData(powerData & d);
+    
     click clicks;
 
+    ofImage mascara;
+    
+    ofxPowerMate powerMate;
     
     ofPoint posicionCentro;
     float time;
-    
-    ofxIntersection is;
-    
-		
 };

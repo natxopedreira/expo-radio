@@ -42,6 +42,8 @@ public:
     void avanza();
     void retrocede();
     
+    int getGradosGiro();
+    
     ofPoint getClick();
     ofPoint getClickSinOffset();
     
@@ -51,14 +53,23 @@ public:
     int numeroCanales;
     int diametro;
     int anchoCajaTexto;
+    int gradosGiro;
     
+    ofImage dialAzul;
+    
+    ofSoundPlayer sonidoRuido;
+    ofSoundPlayer sonidoEmisora;
+    
+    int cuadradoAudio;
+
 private:
     float getAngle(float _x, float _y,float _x0, float _y0);
     void rotaDial();
     void ajustaVolumen();
     void dibujaVolumen();
     
-    ofVec2f getOffset( string s );
+    
+    ofVec2f getOffset( string s , bool bold );
     
     ofPoint clickActual;
     ofPoint clickActualSinOffet;
@@ -66,16 +77,18 @@ private:
     vector<ofRectangle> rectVolumen;
     vector<ofRectangle> rectVolumenUp;
     
-    ofxFTGLSimpleLayout fontArea;
+    ofxFTGLSimpleLayout fontArea, fontAreaBold, fontAreaSmall, fontAreaId;
+    //ofxFTGLFont fuentePlayList,fuentePlaySelect;
     
-    ofSoundPlayer sonidoRuido;
-    ofSoundPlayer sonidoEmisora;
+    
+
     
     int lastAudio;
     int lastAguja;
     int indexClick;
     int posListaMp3;
     int direccion;
+    int indesPlayList;
     
     float anguloActual;
     

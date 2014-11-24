@@ -10,6 +10,8 @@
 	<string>dialRota</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
+		<key>184379474EA9827A2261BDCBDE38F149E84EB63C</key>
+		<string>https://github.com/natxopedreira/ofxPowerMate.git</string>
 		<key>AA3C89083F876A068BF00EE417FF9832B9EAD1B4</key>
 		<string>https://github.com/natxopedreira/expo-radio.git</string>
 	</dict>
@@ -17,6 +19,8 @@
 	<string>dialRota/dialRota.xcodeproj</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
+		<key>184379474EA9827A2261BDCBDE38F149E84EB63C</key>
+		<string>../../../../../addons/ofxPowerMate</string>
 		<key>AA3C89083F876A068BF00EE417FF9832B9EAD1B4</key>
 		<string>../../..</string>
 	</dict>
@@ -35,6 +39,14 @@
 			<string>AA3C89083F876A068BF00EE417FF9832B9EAD1B4</string>
 			<key>IDESourceControlWCCName</key>
 			<string>expo-radio</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>184379474EA9827A2261BDCBDE38F149E84EB63C</string>
+			<key>IDESourceControlWCCName</key>
+			<string>ofxPowerMate</string>
 		</dict>
 	</array>
 </dict>

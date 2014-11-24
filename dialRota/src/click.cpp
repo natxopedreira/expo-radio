@@ -69,10 +69,32 @@ void click::setup(){
     //fuente.loadFont("../../../sharedData/weblysleek_ui/weblysleekuil.ttf", 8, true, true, true);
     //font.loadFont("../../../sharedData/weblysleek_ui/weblysleekuil.ttf", 8);
     
-    fontArea.loadFont("../../../sharedData/weblysleek_ui/weblysleekuil.ttf", 8);
-    fontArea.setAlignment(FTGL_ALIGN_LEFT);
-    fontArea.setLineLength(diametro*.75);
     
+    /////
+    fontArea.loadFont("../../../sharedData/Yosemite/System San Francisco Display Ultralight.ttf", 21);
+    fontArea.setAlignment(FTGL_ALIGN_RIGHT);
+    fontArea.setLineLength(diametro/1.8);
+    fontArea.setLineSpacing(.8);
+    fontArea.setTracking(60);
+    
+    //fuentePlayList.loadFont("../../../sharedData/weblysleek_ui/weblysleekuil.ttf", 8);
+    //fuentePlaySelect.loadFont("../../../sharedData/weblysleek_ui/weblysleekuisl.ttf", 8);
+    
+    ////
+    fontAreaBold.loadFont("../../../sharedData/Yosemite/System San Francisco Text Regular.ttf", 21);
+    fontAreaBold.setAlignment(FTGL_ALIGN_RIGHT);
+    fontAreaBold.setLineLength(diametro/1.2);
+    
+    fontAreaSmall.loadFont("../../../sharedData/Yosemite/System San Francisco Display Ultralight.ttf", 14);
+    fontAreaSmall.setAlignment(FTGL_ALIGN_RIGHT);
+    fontAreaSmall.setLineLength(diametro/1.8);
+    fontAreaSmall.setLineSpacing(.8);
+    
+    
+    fontAreaId.loadFont("../../../sharedData/Yosemite/System San Francisco Display Ultralight.ttf", 45);
+    fontAreaId.setAlignment(FTGL_ALIGN_RIGHT);
+    fontAreaId.setLineLength(diametro/1.8);
+    ///fontAreaId.setLineSpacing(0.0);
     
     /// metemos los datos de mp3 dentro de lel vector de emisoras
     /// movemos el dial una vuelta entera
@@ -100,10 +122,17 @@ void click::setup(){
     // hack para que no aparezca el 0 sintonizado
     indexClick = 60;
     
+    gradosGiro = 60;
+    
     
     // el id del ultimo audio que sono
     lastAudio = -1;
     lastAguja = -1;
+    indesPlayList = -1;
+    cuadradoAudio = -1;
+    
+    /// dialAzul de la radio
+    dialAzul.loadImage("../../../sharedData/dialAzul.png");
 }
 
 //--------------------------------------------------------------
@@ -166,27 +195,60 @@ void click::drawCanales(){
     // looop para los canales
     ofPushStyle();
     
+    
     for (int i = 0; i < canales.size(); i++) {
-        ofSetColor(0);
-        ofLine(canales.at(i).posicion, ofPoint(0,0));
+        ofSetColor(180);
         
+        ofPolyline pl;
+        pl.addVertex(ofPoint(0,0));
+        pl.addVertex(canales.at(i).posicion);
+        
+        
+        ofLine(canales.at(i).posicion, pl.getPointAtLength(375)); // lineas para debug
+        
+        ofSetColor(0);
         ofPushMatrix();
-        if((int)canales.at(i).angulo ==0) ofSetColor(0,255,50);
+        if((int)canales.at(i).angulo ==0) ofSetColor(0,0,50);
         if((int)canales.at(i).angulo ==260 || (int)canales.at(i).angulo ==100) ofSetColor(255,0,50);
         
+        /*
+         debug
+         
         string mensaje = "id " + ofToString(i) + " :: "
         + canales.at(i).mpTres.txt + " :: "
         + ofToString(canales.at(i).mpTres.url) + "  ";
+        */
         
-        ofVec2f offset = getOffset(mensaje);
+        string mensaje = canales.at(i).mpTres.txt;
+        string strId = canales.at(i).mpTres.url;
+        
+        ofStringReplace(strId, ".mp3", "");
+        
+        int largoId = strId.size();
+        if(largoId==1) strId = "0"+strId;
+        
+        /*
+        string mensaje = ofToString(canales.at(i).angulo) + "º id :: " + ofToString(i) + " :: "
+        + canales.at(i).mpTres.txt + " :: "
+        + ofToString(canales.at(i).mpTres.url) + "  ";
+        */
+        
+        ofVec2f offset;
         
         ofTranslate(canales.at(i).posicion);
         ofRotate(canales.at(i).angulo);
         
         
+        if((int)canales.at(i).angulo ==0){
+            //offset = getOffset(mensaje, true);
+            fontAreaBold.drawString(mensaje, -diametro/1.2, -14);
+            fontAreaSmall.drawString(canales.at(i).mpTres.desc, -diametro/1.8, 39);
+        }else{
+            //offset = getOffset(mensaje, false);
+            fontArea.drawString(mensaje, -diametro/1.8, -14);
+        }
         
-        fontArea.drawString(mensaje, offset.x, 0);
-        
+        fontAreaId.drawString(strId, -975 , 36);
         
         
         
@@ -245,8 +307,10 @@ void click::avanza(){
     
     direccion = 1;
     sintonizada = false;
+    
+    gradosGiro += 2;
+    if (gradosGiro>360) gradosGiro = 0;
 }
-
 //--------------------------------------------------------------
 void click::retrocede(){
     indexClick--;
@@ -255,8 +319,16 @@ void click::retrocede(){
     
     direccion = 0;
     sintonizada = false;
+    
+    gradosGiro-=2;
+    if (gradosGiro<0) gradosGiro = 360-gradosGiro;
 }
 
+
+int click::getGradosGiro(){
+    return gradosGiro;
+
+}
 //--------------------------------------------------------------
 void click::rotaDial(){
     
@@ -342,6 +414,7 @@ void click::cambiaCanales(int _in){
         
         canales.at(cualCambiar).mpTres.url = data.mptreses.at(dataDestino).url;
         canales.at(cualCambiar).mpTres.txt = data.mptreses.at(dataDestino).txt;
+        canales.at(cualCambiar).mpTres.desc = data.mptreses.at(dataDestino).desc;
         
     }else if (direccion == 0){
         // la rueda avanza hay que cambiar el de arriba 252º
@@ -362,6 +435,7 @@ void click::cambiaCanales(int _in){
 
         canales.at(cualCambiarAbajo).mpTres.url = data.mptreses.at(dataDestinoAbajo).url;
         canales.at(cualCambiarAbajo).mpTres.txt = data.mptreses.at(dataDestinoAbajo).txt;
+        canales.at(cualCambiarAbajo).mpTres.desc = data.mptreses.at(dataDestinoAbajo).desc;
     }
     
     
@@ -395,6 +469,7 @@ void click::ajustaVolumen(){
                 
                 if(j == lastAguja){
                     dentroSliderAudio = true;
+                    cuadradoAudio = i;
                 }
                 
                 float sonido = ofMap(i*.10, 0.0, 0.7, 0.0, 0.5);
@@ -414,6 +489,7 @@ void click::ajustaVolumen(){
                 
                 if(j == lastAguja){
                     dentroSliderAudio = true;
+                    cuadradoAudio = i;
                 }
                 
                 float sonido = ofMap(i*.10, 0.0, 0.7, 0.0, 0.5);
@@ -436,8 +512,15 @@ int click::dimeIndexMp3(string _mp3){
 }
 
 //--------------------------------------------------------------
-ofVec2f click::getOffset( string s ){
-    ofRectangle r = fontArea.getStringBoundingBox(s, 0, 0);
+ofVec2f click::getOffset( string s, bool bold ){
+    ofRectangle r;
+    
+    if(bold){
+        r = fontAreaBold.getStringBoundingBox(s, 0, 0);
+    }else{
+        r = fontArea.getStringBoundingBox(s, 0, 0);
+    }
+    
     return ofVec2f( floor(-r.x - r.width), floor(-r.y - r.height*0.5) );
 }
 

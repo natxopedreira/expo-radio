@@ -1,14 +1,21 @@
 #include "ofApp.h"
 
+/*
+ esfera de 900px radio
+ 
+ */
+
+
 //--------------------------------------------------------------
 void ofApp::setup(){
     //ofEnableAntiAliasing();
+    ofBackground(255);
     ofSetVerticalSync(true);
     
     // cada dos grados hay un click
     clicks.numClicksDial = 180;
     clicks.numeroCanales = 10;
-    clicks.diametro = 500;
+    clicks.diametro = 850;
     clicks.anchoCajaTexto = 150;
   
     // le decimos el offset para que nos de posiciones relativas a el
@@ -16,51 +23,71 @@ void ofApp::setup(){
     clicks.posicionOffset = posicionCentro;
     clicks.setup();
     
-
+    // time
     time = ofGetElapsedTimef();
+    
+    // dialog
+    mascara.loadImage("../../../sharedData/mascara.png");
+    
+    
+    //powerMate
+    powerMate.conecta();
+    ofAddListener(powerMate.tengoInfo, this, &ofApp::onPowerMateData);
 }
 
 //--------------------------------------------------------------
 void ofApp::update(){
     
-    if(ofGetElapsedTimef()>time+.2){
-        
+    if(ofGetElapsedTimef()>time+.2){ 
         time = ofGetElapsedTimef();
     }
     
+    ///
     clicks.update();
-    
+    powerMate.update();
+
 }
 
 //--------------------------------------------------------------
 void ofApp::draw(){
     
     ofPushMatrix();
-        ofTranslate(1300, ofGetHeight()/2);
-        ofScale(0.5, 0.5);
-        clicks.draw();
+        ofTranslate(960, ofGetHeight());
+        ofRotate(clicks.getGradosGiro());
+        clicks.dialAzul.draw((clicks.dialAzul.getWidth()/2 * -1) , clicks.dialAzul.getHeight()/2 * -1);
     ofPopMatrix();
     
     ofPushMatrix();
-        //dial de la radio
-        ofTranslate(400, ofGetHeight()/2);
+        ofTranslate(960, ofGetHeight());
+        ofRotate(270);
         clicks.drawCanales();
     ofPopMatrix();
     
-    ofSetColor(255,190);
-    ofRect(0, 0, 400, ofGetHeight());
+    mascara.draw(0, -150);
     
     
+}
+//--------------------------------------------------------------
+void ofApp::onPowerMateData(powerData & d){
+    //cout << "onPowerMateData "  << d.direccion << endl;
     
+    if(d.direccion==1) clicks.avanza();
+    if(d.direccion==255) clicks.retrocede();
     
+    // el volumen max de la emisora esta en 0.5
+    int v = clicks.sonidoEmisora.getVolume()*100;
+    //cout << clicks.getGradosGiro() % 10 << endl;
     
+    powerMate.setBrillo(v);
 }
 
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key){
     // 358 alante
     // 356 atras
+    
     if(key == 358) clicks.avanza();
+    
     
     if(key == 356) clicks.retrocede();
     
