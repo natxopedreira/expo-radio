@@ -1,7 +1,7 @@
 #pragma once
 
 #include "ofMain.h"
-
+#include "ofxGui.h"
 #include "ofxPowerMate.h"
 
 class ofApp : public ofBaseApp{
@@ -22,6 +22,9 @@ class ofApp : public ofBaseApp{
 		void gotMessage(ofMessage msg);
 		
     ofxPowerMate powerMate;
+    ofxPanel gui;
+    ofxIntSlider brillo;
+    
     void onPowerMateData(powerData & d);
     
     int intensidad;

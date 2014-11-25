@@ -23,9 +23,9 @@ public:
 class datos {
 public:
     datos(){
-        
    
-        csv.loadFile(ofToDataPath("../../../sharedData/naranja.csv"),";");
+        
+        csv.loadFile(ofToDataPath("../../../sharedData/naranja multi.csv"),";");
         
         for(int i=0; i<csv.numRows; i++) {
             //cout << csv.data[i][0] << endl;
@@ -44,7 +44,7 @@ public:
             mp3.txt = s;
             mp3.url = csv.data[i][0]+".mp3";
             
-            cout << s << " :: " << sDesc << endl;
+            //cout << s << " :: " << sDesc << endl;
             
             mptreses.push_back(mp3);
         }

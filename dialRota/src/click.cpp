@@ -197,7 +197,19 @@ void click::drawCanales(){
     
     
     for (int i = 0; i < canales.size(); i++) {
-        ofSetColor(180);
+        //ofSetColor(150);
+        if((int)canales.at(i).angulo==0) ofSetColor(0);
+        if((int)canales.at(i).angulo<=30 && (int)canales.at(i).angulo>0) ofSetColor(50);
+        if((int)canales.at(i).angulo>30 && (int)canales.at(i).angulo<50) ofSetColor(100);
+        if((int)canales.at(i).angulo>=50 && (int)canales.at(i).angulo<70) ofSetColor(150);
+        if((int)canales.at(i).angulo>=70 && (int)canales.at(i).angulo<90) ofSetColor(200);
+        
+        // 285 360
+        if((int)canales.at(i).angulo>340 && (int)canales.at(i).angulo<360) ofSetColor(100);
+        if((int)canales.at(i).angulo>320 && (int)canales.at(i).angulo<=340) ofSetColor(150);
+        if((int)canales.at(i).angulo>275 && (int)canales.at(i).angulo<=320) ofSetColor(200);
+        
+        
         
         ofPolyline pl;
         pl.addVertex(ofPoint(0,0));
@@ -206,7 +218,7 @@ void click::drawCanales(){
         
         ofLine(canales.at(i).posicion, pl.getPointAtLength(375)); // lineas para debug
         
-        ofSetColor(0);
+       
         ofPushMatrix();
         if((int)canales.at(i).angulo ==0) ofSetColor(0,0,50);
         if((int)canales.at(i).angulo ==260 || (int)canales.at(i).angulo ==100) ofSetColor(255,0,50);
@@ -226,7 +238,6 @@ void click::drawCanales(){
         
         int largoId = strId.size();
         if(largoId==1) strId = "0"+strId;
-        
         /*
         string mensaje = ofToString(canales.at(i).angulo) + "º id :: " + ofToString(i) + " :: "
         + canales.at(i).mpTres.txt + " :: "
@@ -238,12 +249,28 @@ void click::drawCanales(){
         ofTranslate(canales.at(i).posicion);
         ofRotate(canales.at(i).angulo);
         
+         ofSetColor(0);
+
         
         if((int)canales.at(i).angulo ==0){
             //offset = getOffset(mensaje, true);
             fontAreaBold.drawString(mensaje, -diametro/1.2, -14);
             fontAreaSmall.drawString(canales.at(i).mpTres.desc, -diametro/1.8, 39);
         }else{
+             //ofSetColor(150);
+            if((int)canales.at(i).angulo==0) ofSetColor(0);
+            if((int)canales.at(i).angulo<=30 && (int)canales.at(i).angulo>0) ofSetColor(50);
+            if((int)canales.at(i).angulo>30 && (int)canales.at(i).angulo<50) ofSetColor(100);
+            if((int)canales.at(i).angulo>=50 && (int)canales.at(i).angulo<70) ofSetColor(150);
+            if((int)canales.at(i).angulo>=70 && (int)canales.at(i).angulo<90) ofSetColor(200);
+            
+            
+            
+            if((int)canales.at(i).angulo>340 && (int)canales.at(i).angulo<360) ofSetColor(100);
+            if((int)canales.at(i).angulo>320 && (int)canales.at(i).angulo<=340) ofSetColor(150);
+            if((int)canales.at(i).angulo>275 && (int)canales.at(i).angulo<=320) ofSetColor(200);
+            
+            
             //offset = getOffset(mensaje, false);
             fontArea.drawString(mensaje, -diametro/1.8, -14);
         }

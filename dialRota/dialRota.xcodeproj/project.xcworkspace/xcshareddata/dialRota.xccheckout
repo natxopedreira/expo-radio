@@ -20,7 +20,7 @@
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
 		<key>184379474EA9827A2261BDCBDE38F149E84EB63C</key>
-		<string>../../../../../addons/ofxPowerMate</string>
+		<string>../../../../addons/ofxPowerMate</string>
 		<key>AA3C89083F876A068BF00EE417FF9832B9EAD1B4</key>
 		<string>../../..</string>
 	</dict>

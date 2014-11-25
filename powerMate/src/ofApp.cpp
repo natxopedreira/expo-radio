@@ -3,24 +3,34 @@
 //--------------------------------------------------------------
 void ofApp::setup(){
     powerMate.conecta();
-    ofAddListener(powerMate.tengoInfo, this, &ofApp::onPowerMateData);
+    
     
     intensidad = 0;
+    
+    
+    gui.setup();
+    gui.add(brillo.setup("brillo", 0, 0, 255));
+    
+    ofAddListener(powerMate.tengoInfo, this, &ofApp::onPowerMateData);
+   
 }
 
 //--------------------------------------------------------------
 void ofApp::update(){
+    powerMate.setBrillo(brillo);
+    
 
 }
 
 //--------------------------------------------------------------
 void ofApp::draw(){
-
+    gui.draw();
 }
 
 //--------------------------------------------------------------
 void ofApp::onPowerMateData(powerData & d){
-    cout << "onPowerMateData "  << d.direccion << endl;
+    cout << "onPowerMateData direccion "  << d.direccion << endl;
+    cout << "onPowerMateData presionado "  << d.presionado << endl;
 }
 
 //--------------------------------------------------------------
@@ -31,19 +41,6 @@ void ofApp::keyPressed(int key){
 //--------------------------------------------------------------
 void ofApp::keyReleased(int key){
 
-    if(key == 'p'){
-        powerMate.apaga();
-    }
-    if(key == 'e'){
-        powerMate.enciende();
-    }
-    
-    if(key == 'i'){
-        powerMate.setBrillo(255);
-    }
-    if(key == 'o'){
-        powerMate.setBrillo(10);
-    }
 }
 
 //--------------------------------------------------------------

@@ -44,8 +44,8 @@ void ofApp::update(){
     
     ///
     clicks.update();
-    powerMate.update();
-
+  //  powerMate.update();
+//
 }
 
 //--------------------------------------------------------------
