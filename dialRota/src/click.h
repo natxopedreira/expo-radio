@@ -77,11 +77,8 @@ private:
     vector<ofRectangle> rectVolumen;
     vector<ofRectangle> rectVolumenUp;
     
-    ofxFTGLSimpleLayout fontArea, fontAreaBold, fontAreaSmall, fontAreaId;
+    ofxFTGLSimpleLayout fontArea, fontAreaBold, fontAreaSmall, fontAreaId, fontAreaYear;
     //ofxFTGLFont fuentePlayList,fuentePlaySelect;
-    
-    
-
     
     int lastAudio;
     int lastAguja;

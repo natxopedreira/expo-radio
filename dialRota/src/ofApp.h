@@ -29,7 +29,7 @@ class ofApp : public ofBaseApp{
 
     ofImage mascara;
     
-    ofxPowerMate powerMate;
+   // ofxPowerMate powerMate;
     
     ofPoint posicionCentro;
     float time;

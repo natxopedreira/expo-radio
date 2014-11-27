@@ -18,6 +18,7 @@ public:
     string url="nada";
     string txt="nada";
     string desc="nada";
+    string year="nada";
 };
 
 class datos {
@@ -25,7 +26,7 @@ public:
     datos(){
    
         
-        csv.loadFile(ofToDataPath("../../../sharedData/naranja multi.csv"),";");
+        csv.loadFile(ofToDataPath("../../../sharedData/naranja.csv"),";");
         
         for(int i=0; i<csv.numRows; i++) {
             //cout << csv.data[i][0] << endl;
@@ -43,6 +44,7 @@ public:
             mp3.desc = sDesc;
             mp3.txt = s;
             mp3.url = csv.data[i][0]+".mp3";
+            mp3.year = csv.data[i][3];
             
             //cout << s << " :: " << sDesc << endl;
             

@@ -1,10 +1,6 @@
 #include "ofApp.h"
 
-/*
- esfera de 900px radio
- 
- */
-
+//#define USE_POWERMATE
 
 //--------------------------------------------------------------
 void ofApp::setup(){
@@ -15,7 +11,7 @@ void ofApp::setup(){
     // cada dos grados hay un click
     clicks.numClicksDial = 180;
     clicks.numeroCanales = 10;
-    clicks.diametro = 850;
+    clicks.diametro = 875;
     clicks.anchoCajaTexto = 150;
   
     // le decimos el offset para que nos de posiciones relativas a el
@@ -29,10 +25,10 @@ void ofApp::setup(){
     // dialog
     mascara.loadImage("../../../sharedData/mascara.png");
     
-    
     //powerMate
-    powerMate.conecta();
-    ofAddListener(powerMate.tengoInfo, this, &ofApp::onPowerMateData);
+    //powerMate.conecta();
+    //ofAddListener(powerMate.tengoInfo, this, &ofApp::onPowerMateData);
+   
 }
 
 //--------------------------------------------------------------
@@ -44,7 +40,6 @@ void ofApp::update(){
     
     ///
     clicks.update();
-  //  powerMate.update();
 //
 }
 
@@ -76,9 +71,8 @@ void ofApp::onPowerMateData(powerData & d){
     
     // el volumen max de la emisora esta en 0.5
     int v = clicks.sonidoEmisora.getVolume()*100;
-    //cout << clicks.getGradosGiro() % 10 << endl;
     
-    powerMate.setBrillo(v);
+    //powerMate.setBrillo(v);
 }
 
 //--------------------------------------------------------------

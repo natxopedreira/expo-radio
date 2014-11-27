@@ -71,19 +71,25 @@ void click::setup(){
     
     
     /////
-    fontArea.loadFont("../../../sharedData/Yosemite/System San Francisco Display Ultralight.ttf", 21);
+    fontArea.loadFont("../../../sharedData/Yosemite/System San Francisco Display Ultralight.ttf", 23);
     fontArea.setAlignment(FTGL_ALIGN_RIGHT);
     fontArea.setLineLength(diametro/1.8);
     fontArea.setLineSpacing(.8);
-    fontArea.setTracking(60);
+    
+    
+    cout << fontArea.getTracking() << endl;
     
     //fuentePlayList.loadFont("../../../sharedData/weblysleek_ui/weblysleekuil.ttf", 8);
     //fuentePlaySelect.loadFont("../../../sharedData/weblysleek_ui/weblysleekuisl.ttf", 8);
     
     ////
-    fontAreaBold.loadFont("../../../sharedData/Yosemite/System San Francisco Text Regular.ttf", 21);
+    fontAreaBold.loadFont("../../../sharedData/Yosemite/System San Francisco Display Regular.ttf", 23);
     fontAreaBold.setAlignment(FTGL_ALIGN_RIGHT);
     fontAreaBold.setLineLength(diametro/1.2);
+    
+    fontAreaYear.loadFont("../../../sharedData/Yosemite/System San Francisco Display Regular.ttf", 14);
+    fontAreaYear.setAlignment(FTGL_ALIGN_RIGHT);
+    fontAreaYear.setLineLength(diametro/1.2);
     
     fontAreaSmall.loadFont("../../../sharedData/Yosemite/System San Francisco Display Ultralight.ttf", 14);
     fontAreaSmall.setAlignment(FTGL_ALIGN_RIGHT);
@@ -252,10 +258,16 @@ void click::drawCanales(){
          ofSetColor(0);
 
         
-        if((int)canales.at(i).angulo ==0){
+        if((int)canales.at(i).angulo == 0){
             //offset = getOffset(mensaje, true);
             fontAreaBold.drawString(mensaje, -diametro/1.2, -14);
             fontAreaSmall.drawString(canales.at(i).mpTres.desc, -diametro/1.8, 39);
+            
+            int alto = fontAreaSmall.getStringBoundingBox(canales.at(i).mpTres.desc, -diametro/1.8, 39).getHeight();
+            
+            if(canales.at(i).mpTres.desc.size()>40) alto *=2.3;
+            
+            fontAreaYear.drawString(canales.at(i).mpTres.year, -diametro/1.199, 52+alto);
         }else{
              //ofSetColor(150);
             if((int)canales.at(i).angulo==0) ofSetColor(0);
@@ -275,7 +287,7 @@ void click::drawCanales(){
             fontArea.drawString(mensaje, -diametro/1.8, -14);
         }
         
-        fontAreaId.drawString(strId, -975 , 36);
+        fontAreaId.drawString(strId, -1015 , 36);
         
         
         
@@ -442,6 +454,7 @@ void click::cambiaCanales(int _in){
         canales.at(cualCambiar).mpTres.url = data.mptreses.at(dataDestino).url;
         canales.at(cualCambiar).mpTres.txt = data.mptreses.at(dataDestino).txt;
         canales.at(cualCambiar).mpTres.desc = data.mptreses.at(dataDestino).desc;
+        canales.at(cualCambiar).mpTres.year = data.mptreses.at(dataDestino).year;
         
     }else if (direccion == 0){
         // la rueda avanza hay que cambiar el de arriba 252º
@@ -463,6 +476,7 @@ void click::cambiaCanales(int _in){
         canales.at(cualCambiarAbajo).mpTres.url = data.mptreses.at(dataDestinoAbajo).url;
         canales.at(cualCambiarAbajo).mpTres.txt = data.mptreses.at(dataDestinoAbajo).txt;
         canales.at(cualCambiarAbajo).mpTres.desc = data.mptreses.at(dataDestinoAbajo).desc;
+        canales.at(cualCambiarAbajo).mpTres.year = data.mptreses.at(dataDestinoAbajo).year;
     }
     
     
