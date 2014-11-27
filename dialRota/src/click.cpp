@@ -102,6 +102,26 @@ void click::setup(){
     fontAreaId.setLineLength(diametro/1.8);
     ///fontAreaId.setLineSpacing(0.0);
     
+    
+
+    // sonido
+    sonidoRuido.loadSound("../../../sharedData/radioNoise.mp3");
+    sonidoRuido.play();
+    sonidoRuido.setLoop(true);
+    sonidoRuido.setVolume(.5);
+    
+
+    /// dialAzul de la radio
+    dialAzul.loadImage("../../../sharedData/dialAzul.png");
+}
+
+//--------------------------------------------------------------
+void click::cargaDatos(string _urlCsv){
+
+    // cargamos los datos
+    data.carga(_urlCsv);
+    
+    
     /// metemos los datos de mp3 dentro de lel vector de emisoras
     /// movemos el dial una vuelta entera
     
@@ -118,16 +138,9 @@ void click::setup(){
     // si esta puesta una frecuencia
     sintonizada = false;
     
-    // sonido
-    sonidoRuido.loadSound("../../../sharedData/radioNoise.mp3");
-    sonidoRuido.play();
-    sonidoRuido.setLoop(true);
-    sonidoRuido.setVolume(.5);
-    
     
     // hack para que no aparezca el 0 sintonizado
     indexClick = 60;
-    
     gradosGiro = 60;
     
     
@@ -137,8 +150,7 @@ void click::setup(){
     indesPlayList = -1;
     cuadradoAudio = -1;
     
-    /// dialAzul de la radio
-    dialAzul.loadImage("../../../sharedData/dialAzul.png");
+
 }
 
 //--------------------------------------------------------------
@@ -287,7 +299,7 @@ void click::drawCanales(){
             fontArea.drawString(mensaje, -diametro/1.8, -14);
         }
         
-        fontAreaId.drawString(strId, -1015 , 36);
+        fontAreaId.drawString(strId, -1020 , 36);
         
         
         

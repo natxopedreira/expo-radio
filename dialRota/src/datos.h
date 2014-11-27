@@ -23,10 +23,10 @@ public:
 
 class datos {
 public:
-    datos(){
-   
+    
+    void carga(string _url){
         
-        csv.loadFile(ofToDataPath("../../../sharedData/naranja.csv"),";");
+        csv.loadFile(ofToDataPath(_url),";");
         
         for(int i=0; i<csv.numRows; i++) {
             //cout << csv.data[i][0] << endl;
@@ -50,7 +50,6 @@ public:
             
             mptreses.push_back(mp3);
         }
-    
     }
     ofxCsv csv;
     

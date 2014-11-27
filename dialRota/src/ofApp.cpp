@@ -25,6 +25,9 @@ void ofApp::setup(){
     // dialog
     mascara.loadImage("../../../sharedData/mascara.png");
     
+    // csv con las cu–as
+    clicks.cargaDatos("../../../sharedData/naranja.csv");
+    
     //powerMate
     //powerMate.conecta();
     //ofAddListener(powerMate.tengoInfo, this, &ofApp::onPowerMateData);

@@ -41,12 +41,12 @@ public:
     
     void avanza();
     void retrocede();
+    void cargaDatos(string _urlCsv);
     
     int getGradosGiro();
     
     ofPoint getClick();
     ofPoint getClickSinOffset();
-    
     ofPoint posicionOffset;
     
     int numClicksDial;
@@ -61,7 +61,7 @@ public:
     ofSoundPlayer sonidoEmisora;
     
     int cuadradoAudio;
-
+    
 private:
     float getAngle(float _x, float _y,float _x0, float _y0);
     void rotaDial();
