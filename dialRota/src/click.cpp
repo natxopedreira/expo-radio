@@ -51,19 +51,9 @@ void click::setup(){
     }
     
     
-    // los canales representan la lisda de emisoras visibles
-    // los llenamos
-    for (int i = 0; i < numeroCanales; i++) {
-        int iClick = i*numClicksDial/numeroCanales;
-        
-        emisora m;
-        m.posicion = clicks.at(iClick);
-        m.angulo = getAngle(clicks[iClick].x, clicks[iClick].y, 0, 0);
-        m.numero = i;
-        m.pClick = iClick;
-        
-        canales.push_back(m);
-    }
+
+    
+
     
     // tipografia
     //fuente.loadFont("../../../sharedData/weblysleek_ui/weblysleekuil.ttf", 8, true, true, true);
@@ -116,8 +106,73 @@ void click::setup(){
 }
 
 //--------------------------------------------------------------
-void click::cargaDatos(string _urlCsv){
-
+void click::cargaDatos(coleccionSintonizada _col){
+    
+    string _urlCsv ="";
+    
+    switch (_col) {
+        case museoRadio:
+            _urlCsv = "../../../sharedData/naranja.csv";
+            break;
+            
+        case radioGalega:
+            _urlCsv = "../../../sharedData/azul.csv";
+            break;
+            
+        case historicos:
+            _urlCsv = "../../../sharedData/verde.csv";
+            break;
+            
+        case publicidad:
+            _urlCsv = "../../../sharedData/rojo.csv";
+            break;
+            
+        default:
+            break;
+    }
+    
+    
+    
+    // comprobamos si hay canales
+    if(canales.size()>0) canales.erase(canales.begin(), canales.end());
+    
+    
+    // los canales representan la lisda de emisoras visibles
+    // los llenamos
+    
+    if(_urlCsv !=""){
+        
+        // si no hay un resultado valido para _urlCsv no pones los canales
+        
+        for (int i = 0; i < numeroCanales; i++) {
+            int iClick = i*numClicksDial/numeroCanales;
+            
+            emisora m;
+            m.posicion = clicks.at(iClick);
+            m.angulo = getAngle(clicks[iClick].x, clicks[iClick].y, 0, 0);
+            m.numero = i;
+            m.pClick = iClick;
+            
+            canales.push_back(m);
+        }
+        
+    }
+    
+    
+    
+    //miramos si hay alguna cuña cargada
+    if(sonidoEmisora.getIsPlaying()) sonidoEmisora.stop();
+    
+    // si hay data cargada del csv la borramos
+    if(data.mptreses.size()>0){
+        
+        data.mptreses.erase(data.mptreses.begin(), data.mptreses.end());
+        //data.csv.clear();
+        cout << "boooorrro" << endl;
+    }
+    
+    cout << "data.mptreses.size() " << data.mptreses.size() << endl;
+    
     // cargamos los datos
     data.carga(_urlCsv);
     
@@ -394,7 +449,7 @@ void click::rotaDial(){
         canales.at(i).angulo = getAngle(clicks[in].x, clicks[in].y, 0, 0);
         
         // si hay un canal dentro del rango de sintonizar way aviso
-        if((int)canales.at(i).angulo == 0){
+        if((int)canales.at(i).angulo == 0 && data.mptreses.size()>0){
             //cout << "deeeeentro" << endl;
             if(!sintonizada)cambiaCanales(i);
         }

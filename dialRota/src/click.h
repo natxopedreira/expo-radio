@@ -19,6 +19,16 @@
  crea las posiciones por donde se puede mover el dial
  */
 
+enum coleccionSintonizada{
+    museoRadio,
+    radioGalega,
+    historicos,
+    publicidad,
+    
+};
+
+
+
 class emisora{
 public:
     ofPoint posicion;
@@ -41,7 +51,7 @@ public:
     
     void avanza();
     void retrocede();
-    void cargaDatos(string _urlCsv);
+    void cargaDatos(coleccionSintonizada _col);
     
     int getGradosGiro();
     

@@ -1,5 +1,17 @@
 #include "ofApp.h"
 
+
+/*
+coleccionSintonizada
+ 
+ museoRadio
+ radioGalega
+ historicos
+ publicidad
+ 
+ */
+
+
 //#define USE_POWERMATE
 
 //--------------------------------------------------------------
@@ -26,7 +38,7 @@ void ofApp::setup(){
     mascara.loadImage("../../../sharedData/mascara.png");
     
     // csv con las cu–as
-    clicks.cargaDatos("../../../sharedData/naranja.csv");
+    //clicks.cargaDatos(museoRadio);
     
     //powerMate
     //powerMate.conecta();
@@ -88,6 +100,19 @@ void ofApp::keyPressed(int key){
     
     if(key == 356) clicks.retrocede();
     
+    /*
+     coleccionSintonizada
+     
+     museoRadio
+     radioGalega
+     historicos
+     publicidad
+     
+     */
+    if(key == 'w') clicks.cargaDatos(museoRadio);
+    if(key == 'a') clicks.cargaDatos(radioGalega);
+    if(key == 's') clicks.cargaDatos(historicos);
+    if(key == 'd') clicks.cargaDatos(publicidad);
 }
 
 //--------------------------------------------------------------
