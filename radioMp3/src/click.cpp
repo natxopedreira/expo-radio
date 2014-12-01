@@ -60,7 +60,7 @@ void click::setup(){
     
     
     /////
-    fontArea.loadFont("../../../sharedData/Yosemite/System San Francisco Display Ultralight.ttf", 23);
+    fontArea.loadFont("System San Francisco Display Ultralight.ttf", 23);
     fontArea.setAlignment(FTGL_ALIGN_RIGHT);
     fontArea.setLineLength(diametro/1.8);
     fontArea.setLineSpacing(.8);
@@ -72,21 +72,21 @@ void click::setup(){
     //fuentePlaySelect.loadFont("../../../sharedData/weblysleek_ui/weblysleekuisl.ttf", 8);
     
     ////
-    fontAreaBold.loadFont("../../../sharedData/Yosemite/System San Francisco Display Regular.ttf", 23);
+    fontAreaBold.loadFont("System San Francisco Display Regular.ttf", 23);
     fontAreaBold.setAlignment(FTGL_ALIGN_RIGHT);
     fontAreaBold.setLineLength(diametro/1.2);
     
-    fontAreaYear.loadFont("../../../sharedData/Yosemite/System San Francisco Display Regular.ttf", 14);
+    fontAreaYear.loadFont("System San Francisco Display Regular.ttf", 14);
     fontAreaYear.setAlignment(FTGL_ALIGN_RIGHT);
     fontAreaYear.setLineLength(diametro/1.2);
     
-    fontAreaSmall.loadFont("../../../sharedData/Yosemite/System San Francisco Display Ultralight.ttf", 14);
+    fontAreaSmall.loadFont("System San Francisco Display Ultralight.ttf", 14);
     fontAreaSmall.setAlignment(FTGL_ALIGN_RIGHT);
     fontAreaSmall.setLineLength(diametro/1.8);
     fontAreaSmall.setLineSpacing(.8);
     
     
-    fontAreaId.loadFont("../../../sharedData/Yosemite/System San Francisco Display Ultralight.ttf", 45);
+    fontAreaId.loadFont("System San Francisco Display Ultralight.ttf", 45);
     fontAreaId.setAlignment(FTGL_ALIGN_RIGHT);
     fontAreaId.setLineLength(diametro/1.8);
     ///fontAreaId.setLineSpacing(0.0);
@@ -94,14 +94,14 @@ void click::setup(){
     
 
     // sonido
-    sonidoRuido.loadSound("../../../sharedData/radioNoise.mp3");
+    sonidoRuido.loadSound("radioNoise.mp3");
     sonidoRuido.play();
     sonidoRuido.setLoop(true);
     sonidoRuido.setVolume(.5);
     
 
     /// dialAzul de la radio
-    dialAzul.loadImage("../../../sharedData/dialAzul.png");
+    dialAzul.loadImage("dialAzul.png");
 }
 
 //--------------------------------------------------------------
@@ -111,19 +111,19 @@ void click::cargaDatos(coleccionSintonizada _col){
     
     switch (_col) {
         case museoRadio:
-            _urlCsv = "../../../sharedData/naranja.csv";
+            _urlCsv = "naranja.csv";
             break;
             
         case radioGalega:
-            _urlCsv = "../../../sharedData/azul.csv";
+            _urlCsv = "azul.csv";
             break;
             
         case historicos:
-            _urlCsv = "../../../sharedData/verde.csv";
+            _urlCsv = "verde.csv";
             break;
             
         case publicidad:
-            _urlCsv = "../../../sharedData/rojo.csv";
+            _urlCsv = "rojo.csv";
             break;
             
         default:
@@ -549,7 +549,7 @@ void click::cambiaCanales(int _in){
     if(_in != lastAudio){
     /// haces play con el audio de la frecuencia seleccionada
     
-        sonidoEmisora.loadSound("../../../Audios mp3/" + canales.at(_in).mpTres.url);
+        sonidoEmisora.loadSound("Audios mp3/" + canales.at(_in).mpTres.url);
         sonidoEmisora.setVolume(.5);
         sonidoEmisora.play();
     }

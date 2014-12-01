@@ -21,9 +21,11 @@ void ofApp::setup(){
     [window setLevel:CGShieldingWindowLevel()];
     
     /*
-     Also, watch out! If the app crashes as you're working on it it'll cover up everything, even when Xcode tries to show you the error. Use Cmd+. (command period) to get Xcode to force-quit the app in that case.
+     Cmd+. (command period) to get Xcode to force-quit the app in that case.
      */
-    
+
+
+    ofSetDataPathRoot("../Resources/data/");
     
     //ofEnableAntiAliasing();
     ofBackground(255);
@@ -44,7 +46,7 @@ void ofApp::setup(){
     time = ofGetElapsedTimef();
     
     // dialog
-    mascara.loadImage("../../../sharedData/mascara.png");
+    mascara.loadImage("mascara.png");
     
     // csv con las cu–as
     //clicks.cargaDatos(museoRadio);
