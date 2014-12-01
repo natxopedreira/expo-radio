@@ -16,6 +16,15 @@ coleccionSintonizada
 
 //--------------------------------------------------------------
 void ofApp::setup(){
+    CGCaptureAllDisplays();
+    NSWindow * window = (NSWindow *)ofGetWindowPtr()->getCocoaWindow();
+    [window setLevel:CGShieldingWindowLevel()];
+    
+    /*
+     Also, watch out! If the app crashes as you're working on it it'll cover up everything, even when Xcode tries to show you the error. Use Cmd+. (command period) to get Xcode to force-quit the app in that case.
+     */
+    
+    
     //ofEnableAntiAliasing();
     ofBackground(255);
     ofSetVerticalSync(true);
