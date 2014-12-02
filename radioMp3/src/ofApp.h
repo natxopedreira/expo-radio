@@ -27,7 +27,9 @@ class ofApp : public ofBaseApp{
     
     click clicks;
 
+    ofImage lineasGordas;
     ofImage mascara;
+    ofImage fondoAzul, fondoVerde, fondoNaranja, fondoGris;
     
    // ofxPowerMate powerMate;
     

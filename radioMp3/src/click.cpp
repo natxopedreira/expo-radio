@@ -10,7 +10,7 @@
 
 
 void click::setup(){
-
+    
     // hacemos un circulo con ofPath y luego le marcamos la resolucion
     circuloClicks.circle(0, 0, diametro);
     circuloClicks.setCircleResolution(numClicksDial);
@@ -21,7 +21,7 @@ void click::setup(){
     // borramos el vertice que es el centro
     for (int i = 0; i < lineaClicks.getVertices().size(); i++) {
         if(lineaClicks.getVertices().at(i) == ofPoint(0,0)){
-         lineaClicks.getVertices().erase(lineaClicks.getVertices().begin()+i);
+            lineaClicks.getVertices().erase(lineaClicks.getVertices().begin()+i);
         }
     }
     
@@ -50,9 +50,9 @@ void click::setup(){
     }
     
     
-
     
-
+    
+    
     
     // tipografia
     //fuente.loadFont("../../../sharedData/weblysleek_ui/weblysleekuil.ttf", 8, true, true, true);
@@ -92,16 +92,19 @@ void click::setup(){
     ///fontAreaId.setLineSpacing(0.0);
     
     
-
+    
     // sonido
     sonidoRuido.loadSound("radioNoise.mp3");
     sonidoRuido.play();
     sonidoRuido.setLoop(true);
     sonidoRuido.setVolume(.5);
     
-
+    
     /// dialAzul de la radio
     dialAzul.loadImage("dialAzul.png");
+    dialVerde.loadImage("dialVerde.png");
+    dialNaranja.loadImage("dialNaranja.png");
+    dialGris.loadImage("dialGris.png");
 }
 
 //--------------------------------------------------------------
@@ -112,18 +115,22 @@ void click::cargaDatos(coleccionSintonizada _col){
     switch (_col) {
         case museoRadio:
             _urlCsv = "naranja.csv";
+            cadenaSintonizada = museoRadio;
             break;
             
         case radioGalega:
             _urlCsv = "azul.csv";
+            cadenaSintonizada = radioGalega;
             break;
             
         case historicos:
             _urlCsv = "verde.csv";
+            cadenaSintonizada = historicos;
             break;
             
         case publicidad:
             _urlCsv = "rojo.csv";
+            cadenaSintonizada = publicidad;
             break;
             
         default:
@@ -161,7 +168,7 @@ void click::cargaDatos(coleccionSintonizada _col){
     
     //miramos si hay alguna cuña cargada
     if(sonidoEmisora.getIsPlaying()) sonidoEmisora.stop();
-   
+    
     // cargamos los datos
     data.carga(_urlCsv);
     
@@ -196,9 +203,12 @@ void click::cargaDatos(coleccionSintonizada _col){
     indesPlayList = -1;
     cuadradoAudio = -1;
     
-
+    
 }
+coleccionSintonizada click::dimeCanal(){
 
+    return cadenaSintonizada;
+}
 //--------------------------------------------------------------
 void click::update(){
     
@@ -259,6 +269,7 @@ void click::drawCanales(){
     // looop para los canales
     ofPushStyle();
     
+    //ofLine(canales.at(0).posicion, ofPoint(0,0)); // lineas para debug
     
     for (int i = 0; i < canales.size(); i++) {
         //ofSetColor(150);
@@ -282,7 +293,7 @@ void click::drawCanales(){
         
         ofLine(canales.at(i).posicion, pl.getPointAtLength(375)); // lineas para debug
         
-       
+        
         ofPushMatrix();
         if((int)canales.at(i).angulo ==0) ofSetColor(0,0,50);
         if((int)canales.at(i).angulo ==260 || (int)canales.at(i).angulo ==100) ofSetColor(255,0,50);
@@ -290,10 +301,10 @@ void click::drawCanales(){
         /*
          debug
          
-        string mensaje = "id " + ofToString(i) + " :: "
-        + canales.at(i).mpTres.txt + " :: "
-        + ofToString(canales.at(i).mpTres.url) + "  ";
-        */
+         string mensaje = "id " + ofToString(i) + " :: "
+         + canales.at(i).mpTres.txt + " :: "
+         + ofToString(canales.at(i).mpTres.url) + "  ";
+         */
         
         string mensaje = canales.at(i).mpTres.txt;
         string strId = canales.at(i).mpTres.url;
@@ -304,18 +315,18 @@ void click::drawCanales(){
         int largoId = strId.size();
         if(largoId==1) strId = "0"+strId;
         /*
-        string mensaje = ofToString(canales.at(i).angulo) + "º id :: " + ofToString(i) + " :: "
-        + canales.at(i).mpTres.txt + " :: "
-        + ofToString(canales.at(i).mpTres.url) + "  ";
-        */
+         string mensaje = ofToString(canales.at(i).angulo) + "º id :: " + ofToString(i) + " :: "
+         + canales.at(i).mpTres.txt + " :: "
+         + ofToString(canales.at(i).mpTres.url) + "  ";
+         */
         
         ofVec2f offset;
         
         ofTranslate(canales.at(i).posicion);
         ofRotate(canales.at(i).angulo);
         
-         ofSetColor(0);
-
+        ofSetColor(0);
+        
         
         if((int)canales.at(i).angulo == 0){
             //offset = getOffset(mensaje, true);
@@ -328,7 +339,7 @@ void click::drawCanales(){
             
             fontAreaYear.drawString(canales.at(i).mpTres.year, -diametro/1.199, 52+alto);
         }else{
-             //ofSetColor(150);
+            //ofSetColor(150);
             if((int)canales.at(i).angulo==0) ofSetColor(0);
             if((int)canales.at(i).angulo<=30 && (int)canales.at(i).angulo>0) ofSetColor(50);
             if((int)canales.at(i).angulo>30 && (int)canales.at(i).angulo<50) ofSetColor(100);
@@ -427,7 +438,7 @@ void click::retrocede(){
 
 int click::getGradosGiro(){
     return gradosGiro;
-
+    
 }
 //--------------------------------------------------------------
 void click::rotaDial(){
@@ -449,7 +460,7 @@ void click::rotaDial(){
         }
     }
     
-   
+    
 }
 
 //--------------------------------------------------------------
@@ -497,7 +508,7 @@ void click::cambiaCanales(int _in){
         // la rueda avanza hay que cambiar el de arriba 252º
         for (int d = 0; d < data.mptreses.size(); d++) {
             if (data.mptreses.at(d).url == stringReferencia) canalReferencia = d;
-                
+            
         }
         
         dataDestino = canalReferencia - 1;
@@ -533,7 +544,7 @@ void click::cambiaCanales(int _in){
         //cout << "ponerle el data id " << dataDestinoAbajo <<endl;
         //cout << "tiene que poner " << data.mptreses.at(dataDestinoAbajo).url <<endl;
         //cout << "me baso en el valor de " << data.mptreses.at(canalReferenciAbajo).url << "con id " << canalReferenciAbajo << endl;
-
+        
         canales.at(cualCambiarAbajo).mpTres.url = data.mptreses.at(dataDestinoAbajo).url;
         canales.at(cualCambiarAbajo).mpTres.txt = data.mptreses.at(dataDestinoAbajo).txt;
         canales.at(cualCambiarAbajo).mpTres.desc = data.mptreses.at(dataDestinoAbajo).desc;
@@ -547,8 +558,8 @@ void click::cambiaCanales(int _in){
     }
     
     if(_in != lastAudio){
-    /// haces play con el audio de la frecuencia seleccionada
-    
+        /// haces play con el audio de la frecuencia seleccionada
+        
         sonidoEmisora.loadSound("Audios mp3/" + canales.at(_in).mpTres.url);
         sonidoEmisora.setVolume(.5);
         sonidoEmisora.play();

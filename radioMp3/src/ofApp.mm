@@ -16,16 +16,24 @@ coleccionSintonizada
 
 //--------------------------------------------------------------
 void ofApp::setup(){
+    /*
+    
     CGCaptureAllDisplays();
     NSWindow * window = (NSWindow *)ofGetWindowPtr()->getCocoaWindow();
     [window setLevel:CGShieldingWindowLevel()];
     
-    /*
-     Cmd+. (command period) to get Xcode to force-quit the app in that case.
+    
+    
      */
 
+    
+    
+    
 
     ofSetDataPathRoot("../Resources/data/");
+    
+    
+    
     
     //ofEnableAntiAliasing();
     ofBackground(255);
@@ -46,7 +54,12 @@ void ofApp::setup(){
     time = ofGetElapsedTimef();
     
     // dialog
-    mascara.loadImage("mascara.png");
+    mascara.loadImage("mascara_2_blur.png");
+    fondoAzul.loadImage("azul.jpg");
+    fondoVerde.loadImage("verde.jpg");
+    fondoNaranja.loadImage("naranja.jpg");
+    fondoGris.loadImage("gris.jpg");
+    lineasGordas.loadImage("lineas-gordas.png");
     
     // csv con las cu–as
     //clicks.cargaDatos(museoRadio);
@@ -76,19 +89,79 @@ void ofApp::update(){
 //--------------------------------------------------------------
 void ofApp::draw(){
     
+    
+    switch (clicks.dimeCanal()) {
+        case museoRadio:
+            fondoAzul.draw(-250,-50);
+            break;
+            
+        case radioGalega:
+            fondoVerde.draw(-250,-50);
+            break;
+            
+        case historicos:
+            fondoNaranja.draw(-250,-50);
+            break;
+            
+        case publicidad:
+            fondoGris.draw(-250,-50);
+            break;
+    }
+    
+    
+    
     ofPushMatrix();
-        ofTranslate(960, ofGetHeight());
+    
+    
+        ofTranslate(960, ofGetHeight()-40);
+    
+    
         ofRotate(clicks.getGradosGiro());
-        clicks.dialAzul.draw((clicks.dialAzul.getWidth()/2 * -1) , clicks.dialAzul.getHeight()/2 * -1);
+    
+    switch (clicks.dimeCanal()) {
+        case museoRadio:
+                clicks.dialAzul.draw((clicks.dialAzul.getWidth()/2 * -1) , clicks.dialAzul.getHeight()/2 * -1);
+            break;
+            
+        case radioGalega:
+                clicks.dialVerde.draw((clicks.dialAzul.getWidth()/2 * -1) , clicks.dialAzul.getHeight()/2 * -1);
+            break;
+            
+        case historicos:
+                clicks.dialNaranja.draw((clicks.dialAzul.getWidth()/2 * -1) , clicks.dialAzul.getHeight()/2 * -1);
+            break;
+            
+        case publicidad:
+                clicks.dialGris.draw((clicks.dialAzul.getWidth()/2 * -1) , clicks.dialAzul.getHeight()/2 * -1);
+            break;
+    }
+    
+    //clicks.dialAzul.draw((clicks.dialAzul.getWidth()/2 * -1) , clicks.dialAzul.getHeight()/2 * -1);
+    
+    
     ofPopMatrix();
     
     ofPushMatrix();
-        ofTranslate(960, ofGetHeight());
+        ofTranslate(960, ofGetHeight()-40);
         ofRotate(270);
         clicks.drawCanales();
     ofPopMatrix();
     
-    //mascara.draw(0, -150);
+    
+    // dial rojo
+    ofPushStyle();
+    
+    ofPolyline pl;
+    pl.addVertex(ofPoint(960, ofGetHeight()-40));
+    pl.addVertex(ofPoint(ofGetWidth()/2,0));
+    
+    ofSetColor(200,0,0);
+    ofLine(pl.getPointAtLength(374), (ofPoint(ofGetWidth()/2,160)));
+    ofPopStyle();
+    
+    lineasGordas.draw(0,120);
+    
+    mascara.draw(0, 0);
     
     
 }

@@ -45,7 +45,7 @@ public:
     void update();
     void draw();
     void drawCanales();
-
+    
     void cambiaCanales(int _in);
     int dimeIndexMp3(string _mp3);
     
@@ -65,12 +65,16 @@ public:
     int anchoCajaTexto;
     int gradosGiro;
     
-    ofImage dialAzul;
+    ofImage dialAzul, dialVerde, dialNaranja, dialGris;
     
     ofSoundPlayer sonidoRuido;
     ofSoundPlayer sonidoEmisora;
     
     int cuadradoAudio;
+    
+    coleccionSintonizada dimeCanal();
+    
+    coleccionSintonizada cadenaSintonizada;
     
 private:
     float getAngle(float _x, float _y,float _x0, float _y0);
