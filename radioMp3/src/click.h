@@ -12,7 +12,7 @@
 #include "ofMain.h"
 #include "datos.h"
 #include "ofxFTGL.h"
-
+#include "snapshot.h"
 #define GRAD_PI 180.000/PI
 
 /*
@@ -45,6 +45,7 @@ public:
     void update();
     void draw();
     void drawCanales();
+    void exit();
     
     void cambiaCanales(int _in);
     int dimeIndexMp3(string _mp3);
@@ -64,17 +65,16 @@ public:
     int diametro;
     int anchoCajaTexto;
     int gradosGiro;
+    int cuadradoAudio;
     
     ofImage dialAzul, dialVerde, dialNaranja, dialGris;
     
     ofSoundPlayer sonidoRuido;
     ofSoundPlayer sonidoEmisora;
     
-    int cuadradoAudio;
     
     coleccionSintonizada dimeCanal();
     
-    coleccionSintonizada cadenaSintonizada;
     
 private:
     float getAngle(float _x, float _y,float _x0, float _y0);
@@ -92,7 +92,6 @@ private:
     vector<ofRectangle> rectVolumenUp;
     
     ofxFTGLSimpleLayout fontArea, fontAreaBold, fontAreaSmall, fontAreaId, fontAreaYear;
-    //ofxFTGLFont fuentePlayList,fuentePlaySelect;
     
     int lastAudio;
     int lastAguja;
@@ -115,8 +114,11 @@ private:
     // lista con los clicks del dial
     vector<ofPoint> clicks;
     
+    coleccionSintonizada cadenaSintonizada;
     
     datos data;
+    
+    snapshot fotosUsuarios;
 };
 
 #endif /* defined(__dialRota__click__) */

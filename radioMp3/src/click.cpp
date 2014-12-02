@@ -105,6 +105,10 @@ void click::setup(){
     dialVerde.loadImage("dialVerde.png");
     dialNaranja.loadImage("dialNaranja.png");
     dialGris.loadImage("dialGris.png");
+    
+    // snapshots
+    fotosUsuarios.setup("/Users/natxo/Desktop/fotos/radioMp3_");
+    
 }
 
 //--------------------------------------------------------------
@@ -227,6 +231,8 @@ void click::update(){
     // ajusta el volumen
     ajustaVolumen();
     
+    // snap shot
+    fotosUsuarios.update();
 }
 
 //--------------------------------------------------------------
@@ -457,6 +463,8 @@ void click::rotaDial(){
         if((int)canales.at(i).angulo == 0 && data.mptreses.size()>0){
             //cout << "deeeeentro" << endl;
             if(!sintonizada)cambiaCanales(i);
+            
+           
         }
     }
     
@@ -465,6 +473,8 @@ void click::rotaDial(){
 
 //--------------------------------------------------------------
 void click::cambiaCanales(int _in){
+    // sanpshot
+    fotosUsuarios.takePhoto();
     
     sintonizada = true;
     
@@ -645,6 +655,11 @@ ofPoint click::getClick(){
 //--------------------------------------------------------------
 ofPoint click::getClickSinOffset(){
     return  clickActualSinOffet;
+}
+
+
+void click::exit(){
+    fotosUsuarios.exit();
 }
 
 //--------------------------------------------------------------

@@ -66,6 +66,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		2A73EAA81A2E213E0029F295 /* snapshot.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = snapshot.h; sourceTree = "<group>"; };
+		2A73EAA91A2E21A10029F295 /* ofxImageSequenceRecorder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ofxImageSequenceRecorder.h; sourceTree = "<group>"; };
 		2AC3D6CE1A2CBE85007ACAED /* ofxFTGL.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ofxFTGL.h; sourceTree = "<group>"; };
 		2AC3D6CF1A2CBE85007ACAED /* ofxFTGLFont.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ofxFTGLFont.cpp; sourceTree = "<group>"; };
 		2AC3D6D01A2CBE85007ACAED /* ofxFTGLFont.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ofxFTGLFont.h; sourceTree = "<group>"; };
@@ -351,12 +353,14 @@
 		E4B69E1C0A3A1BDC003C02F2 /* src */ = {
 			isa = PBXGroup;
 			children = (
+				2A73EAA91A2E21A10029F295 /* ofxImageSequenceRecorder.h */,
 				2AED120D1A2CBE4E007A2B38 /* click.cpp */,
 				2AED120E1A2CBE4E007A2B38 /* click.h */,
 				2AED120F1A2CBE4E007A2B38 /* datos.h */,
 				E4B69E1D0A3A1BDC003C02F2 /* main.cpp */,
 				E4B69E1E0A3A1BDC003C02F2 /* ofApp.mm */,
 				E4B69E1F0A3A1BDC003C02F2 /* ofApp.h */,
+				2A73EAA81A2E213E0029F295 /* snapshot.h */,
 			);
 			path = src;
 			sourceTree = SOURCE_ROOT;
