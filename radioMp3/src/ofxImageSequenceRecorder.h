@@ -64,7 +64,8 @@ public:
         
         
         char fileName[100]; 
-        sprintf(fileName,  "%s%.4i.%s" , prefix.c_str(), counter, format.c_str());     
+        sprintf(fileName, "%s%.4i.%s" , prefix.c_str(), ofGetUnixTime(), format.c_str());
+        //sprintf(fileName,  "%s%.4i.%s" , prefix.c_str(), ofGetTimestampString(), format.c_str());
         counter++;   
         
         QueuedImage qImage;

@@ -32,8 +32,12 @@ class ofApp : public ofBaseApp{
     ofImage lineasGordas;
     ofImage mascara;
     ofImage fondoAzul, fondoVerde, fondoNaranja, fondoGris;
+    ofImage botoneraOff, botoneraOn;
     
-   // ofxPowerMate powerMate;
+    ofxPowerMate powerMate;
+    ofxFTGLSimpleLayout fuenteMenu;
+    
+    ofSoundPlayer sonidoBoton;
     
     ofPoint posicionCentro;
     float time;

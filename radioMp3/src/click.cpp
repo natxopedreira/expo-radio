@@ -66,7 +66,7 @@ void click::setup(){
     fontArea.setLineSpacing(.8);
     
     
-    cout << fontArea.getTracking() << endl;
+    //cout << fontArea.getTracking() << endl;
     
     //fuentePlayList.loadFont("../../../sharedData/weblysleek_ui/weblysleekuil.ttf", 8);
     //fuentePlaySelect.loadFont("../../../sharedData/weblysleek_ui/weblysleekuisl.ttf", 8);
@@ -107,7 +107,11 @@ void click::setup(){
     dialGris.loadImage("dialGris.png");
     
     // snapshots
-    fotosUsuarios.setup("/Users/natxo/Desktop/fotos/radioMp3_");
+    fotosUsuarios.setup("/Users/imacradio/Desktop/fotos/radioMp3_");
+    
+    
+    // lista salidas audio
+   
     
 }
 
@@ -181,7 +185,9 @@ void click::cargaDatos(coleccionSintonizada _col){
     /// movemos el dial una vuelta entera
     
     for (int m = 0; m < data.mptreses.size(); m++) {
-        if(m<canales.size()) canales.at(m).mpTres = data.mptreses.at(m);
+        if(m<canales.size()){
+            canales.at(m).mpTres = data.mptreses.at(m);
+        }
     }
     
     //cout << "primer elemento " << data.mptreses.at(0).txt << endl;
@@ -342,6 +348,7 @@ void click::drawCanales(){
             int alto = fontAreaSmall.getStringBoundingBox(canales.at(i).mpTres.desc, -diametro/1.8, 39).getHeight();
             
             if(canales.at(i).mpTres.desc.size()>40) alto *=2.3;
+            if(canales.at(i).mpTres.desc.size()>70) alto *=1.9;
             
             fontAreaYear.drawString(canales.at(i).mpTres.year, -diametro/1.199, 52+alto);
         }else{

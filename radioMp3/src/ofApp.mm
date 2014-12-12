@@ -16,7 +16,7 @@ coleccionSintonizada
 
 //--------------------------------------------------------------
 void ofApp::setup(){
-    /*
+  
     
     CGCaptureAllDisplays();
     NSWindow * window = (NSWindow *)ofGetWindowPtr()->getCocoaWindow();
@@ -24,7 +24,7 @@ void ofApp::setup(){
     
     
     
-     */
+  
 
     
     
@@ -33,7 +33,7 @@ void ofApp::setup(){
     ofSetDataPathRoot("../Resources/data/");
     
     
-    
+    ofHideCursor();
     
     //ofEnableAntiAliasing();
     ofBackground(255);
@@ -61,17 +61,30 @@ void ofApp::setup(){
     fondoGris.loadImage("gris.jpg");
     lineasGordas.loadImage("lineas-gordas.png");
     
-    // csv con las cu�as
+    // csv con las cuñas
     //clicks.cargaDatos(museoRadio);
     
     //powerMate
-    //powerMate.conecta();
-    //ofAddListener(powerMate.tengoInfo, this, &ofApp::onPowerMateData);
+    powerMate.conecta();
+    ofAddListener(powerMate.tengoInfo, this, &ofApp::onPowerMateData);
     
     
     //iniciamos en museoRadio
     clicks.cargaDatos(museoRadio);
+    
+    
+    botoneraOff.loadImage("botones-cadenas.png");
+    botoneraOn.loadImage("botones-cadenas-ON.png");
+    
+    
+    fuenteMenu.loadFont("System San Francisco Display Ultralight.ttf", 15);
+    fuenteMenu.setLineLength(300);
    
+    
+    sonidoBoton.loadSound("mac-sound-pack-funk.mp3");
+    //sonidoBoton.setLoop(OF_LOOP_NONE);
+    //sonidoBoton.setMultiPlay(false);
+    sonidoBoton.setVolume(255);
 }
 
 //--------------------------------------------------------------
@@ -159,9 +172,94 @@ void ofApp::draw(){
     ofLine(pl.getPointAtLength(374), (ofPoint(ofGetWidth()/2,160)));
     ofPopStyle();
     
+    // lineas decoracion
     lineasGordas.draw(0,120);
     
+    
+    // mascara
     mascara.draw(0, 0);
+    
+    
+    // botonera cadenas
+    
+    ofPushStyle();
+    ofPushMatrix();
+    
+    ofTranslate(1580, 375);
+    ofRotate(270);
+    
+    ofSetColor(255);
+    botoneraOff.draw(0, 0, botoneraOff.getWidth()+80, botoneraOff.getHeight()-7);
+    
+    // textos
+    
+    
+    int posY = 0;
+    int cual = 0;
+    
+    switch (clicks.dimeCanal()) {
+        case museoRadio:
+            posY = 0;
+            cual = 0;
+            break;
+            
+        case radioGalega:
+            posY = 55;
+            cual = 1;
+            break;
+            
+        case historicos:
+            posY = 55*2;
+            cual = 2;
+            break;
+            
+        case publicidad:
+            posY = 55*3;
+            cual = 3;
+            break;
+    }
+    
+    
+    
+    
+    botoneraOn.draw(0, posY, botoneraOn.getWidth()+80, botoneraOn.getHeight()-7);
+    
+    
+    if(cual == 0){
+        ofSetColor(255);
+    }else{
+        ofSetColor(20);
+    }
+    fuenteMenu.drawString("Museo de la radio", 20, 35);
+    
+    
+    if(cual == 1){
+        ofSetColor(255);
+    }else{
+        ofSetColor(20);
+    }
+    
+    fuenteMenu.drawString("Radio Galega", 20, 91);
+    
+    if(cual == 2){
+        ofSetColor(255);
+    }else{
+        ofSetColor(20);
+    }
+    
+    fuenteMenu.drawString("Históricas", 20, 145);
+    
+    
+    if(cual == 3){
+        ofSetColor(255);
+    }else{
+        ofSetColor(20);
+    }
+    
+    fuenteMenu.drawString("Publicidad", 20, 201);
+    
+    ofPopMatrix();
+    ofPopStyle();
     
     
 }
@@ -175,7 +273,7 @@ void ofApp::onPowerMateData(powerData & d){
     // el volumen max de la emisora esta en 0.5
     int v = clicks.sonidoEmisora.getVolume()*100;
     
-    //powerMate.setBrillo(v);
+    powerMate.setBrillo(v);
 }
 
 //--------------------------------------------------------------
@@ -197,15 +295,23 @@ void ofApp::keyPressed(int key){
      publicidad
      
      */
-    if(key == 'w') clicks.cargaDatos(museoRadio);
-    if(key == 'a') clicks.cargaDatos(radioGalega);
-    if(key == 's') clicks.cargaDatos(historicos);
-    if(key == 'd') clicks.cargaDatos(publicidad);
+    if(key == 'w') clicks.cargaDatos(museoRadio); //w
+    if(key == 'a') clicks.cargaDatos(radioGalega); //a
+    if(key == 'd') clicks.cargaDatos(historicos); //s
+    if(key == 's') clicks.cargaDatos(publicidad); //d
+    if(key == 'c') ofShowCursor();
+    if(key == 'f'){
+        // cierras y sales
+        exit();
+        //system("sudo halt");
+    }
+    
 }
 
 //--------------------------------------------------------------
 void ofApp::keyReleased(int key){
-
+    sonidoBoton.play();
+    //cout << "key" << endl;
 }
 
 //--------------------------------------------------------------
@@ -246,4 +352,6 @@ void ofApp::dragEvent(ofDragInfo dragInfo){
 //--------------------------------------------------------------
 void ofApp::exit(){
     clicks.exit();
+    system("osascript -e 'tell app \"System Events\" to shut down'");
+    ofExit();
 }

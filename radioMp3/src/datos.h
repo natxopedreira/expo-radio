@@ -15,10 +15,10 @@ using namespace wng;
 
 class infoMp3 {
 public:
-    string url="nada";
-    string txt="nada";
-    string desc="nada";
-    string year="nada";
+    string url="";
+    string txt="";
+    string desc="";
+    string year="";
     int idele = 0;
 };
 

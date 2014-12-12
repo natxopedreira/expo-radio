@@ -16,6 +16,7 @@ class snapshot {
 public:
     
     void setup(string _url){
+        grabber.setDeviceID(1);
         grabber.initGrabber(640, 480);
         
         grabaFrames.setPrefix(_url);
